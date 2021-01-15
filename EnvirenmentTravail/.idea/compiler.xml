@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="EnvirenmentTravail" />
         <module name="GestionDabsence" />
+        <module name="EnvirenmentTravail" />
       </profile>
     </annotationProcessing>
   </component>
