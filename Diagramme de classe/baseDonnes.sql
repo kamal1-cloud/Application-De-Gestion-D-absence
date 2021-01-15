@@ -3,11 +3,11 @@
 /*==============================================================*/
 create table Absence 
 (
-   idEtudiant           integer                        null,
-   dateDebu             integer                        null,
-   dateFin              integer                        null,
-   isJustifie           smallint                       null,
-   retard               smallint                       null
+   idEtudiant           integer                        not null,
+   dateDebu             integer                        not null,
+   dateFin              integer                         not null,
+   isJustifie           smallint                       not null,
+   retard               smallint                       not null
 );
 
 /*==============================================================*/
@@ -15,7 +15,7 @@ create table Absence
 /*==============================================================*/
 create table Admin 
 (
-   idAdmin              integer                        null
+   idAdmin              integer                        not null,
 );
 
 /*==============================================================*/
@@ -23,11 +23,11 @@ create table Admin
 /*==============================================================*/
 create table Apprenant 
 (
-   isCurrentActif       smallint                       null,
-   promo                integer                        null,
-   classe               integer                        null,
-   specialite           varchar(254)                   null,
-   idApprenant          integer                        null
+   isCurrentActif       smallint                       not null,
+   promo                integer                        not null,
+   classe               integer                        not null,
+   specialite           varchar(254)                   not null,
+   idApprenant          integer                        not null
 );
 
 /*==============================================================*/
@@ -35,8 +35,8 @@ create table Apprenant
 /*==============================================================*/
 create table Formateur 
 (
-   classe               integer                        null,
-   idFormateur          integer                        null
+   classe               integer                        not null,
+   idFormateur          integer                        not null
 );
 
 /*==============================================================*/
@@ -44,8 +44,8 @@ create table Formateur
 /*==============================================================*/
 create table Promotion 
 (
-   idPromo              integer                        null,
-   annee                integer                        null
+   idPromo              integer                        not null,
+   annee                integer                        not null
 );
 
 /*==============================================================*/
@@ -53,17 +53,16 @@ create table Promotion
 /*==============================================================*/
 create table Secretaire 
 (
-   idSecretaire         integer                        null
-);
+   idSecretaire         integer                        not null);
 
 /*==============================================================*/
 /* Table : SpecialiteClasse                                     */
 /*==============================================================*/
 create table SpecialiteClasse 
 (
-   id                   integer                        null,
-   name                 varchar(254)                   null,
-   isClasse             smallint                       null
+   id                   integer                        not null,
+   name                 varchar(254)                   not null,
+   isClasse             smallint                       not null
 );
 
 /*==============================================================*/
@@ -71,14 +70,14 @@ create table SpecialiteClasse
 /*==============================================================*/
 create table "User" 
 (
-   idUser               integer                        null,
-   nom                  varchar(254)                   null,
-   prenom               varchar(254)                   null,
-   numTel               integer                        null,
-   email                varchar(254)                   null,
-   password             varchar(254)                   null,
-   cin                  varchar(254)                   null,
-   dateNaissance        integer                        null
+   idUser               integer                        not null,
+   nom                  varchar(254)                   not null,
+   prenom               varchar(254)                   not null,
+   numTel               integer                        not null,
+   email                varchar(254)                   not null,
+   password             varchar(254)                   not null,
+   cin                  varchar(254)                   not null,
+   dateNaissance        integer                        not null
 );
 
 /*==============================================================*/
