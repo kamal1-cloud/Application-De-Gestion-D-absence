@@ -99,14 +99,21 @@ create table Formateur
 create table Apprenant 
 (
    idApprenant BIGINT NOT NULL AUTO_INCREMENT,
+   nom VARCHAR(50) NOT NULL,
+   prenom VARCHAR(50) NOT NULL,
+   numTele VARCHAR(12),
+   email VARCHAR(100),
+   password VARCHAR(255),
+   CIN VARCHAR(12),
+   dateNaissance DATE,
    idPromo BIGINT,
    isCurrentActif BOOLEAN NOT NULL,
    classe BIGINT,
    specialite BIGINT,
     PRIMARY KEY (idApprenant),
-    FOREIGN KEY(idPromo) REFERENCES Promotion (idPromo),
+    FOREIGN KEY(idPromo) REFERENCES Promotion(idPromo),
      FOREIGN KEY(classe) REFERENCES Classe(idClasse),
-      FOREIGN KEY(specialite) REFERENCES Specialite (idSpecialite)
+      FOREIGN KEY(specialite) REFERENCES Specialite(idSpecialite)
 
 );
 /*==============================================================*/
