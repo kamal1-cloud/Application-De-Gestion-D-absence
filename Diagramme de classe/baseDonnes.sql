@@ -1,4 +1,4 @@
-CREATE database gestionDabsence;
+
 use gestionDabsence;
 
 
@@ -129,4 +129,3 @@ create table Absence
    idApprenant BIGINT,
    FOREIGN KEY (idApprenant) REFERENCES Apprenant(idApprenant)
 );
-
