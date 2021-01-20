@@ -6,6 +6,7 @@ ma\youcode\GestionDabsence\Services\FormateurServices.class
 ma\youcode\GestionDabsence\DAO\FormateurDAO\FormateurDaoImp.class
 ma\youcode\GestionDabsence\Modeles\Apprenant.class
 ma\youcode\GestionDabsence\Modeles\Formateur.class
+ma\youcode\GestionDabsence\Oumaima\Ouma.class
 ma\youcode\GestionDabsence\Connectivity\DbConnection.class
 ma\youcode\GestionDabsence\Services\SecretaireServices.class
 ma\youcode\GestionDabsence\DAO\SecretaireDAO\SecretaireDaoImp.class

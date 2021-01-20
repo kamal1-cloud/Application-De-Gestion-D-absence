@@ -7,8 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="EnvirenmentTravail" />
-        <module name="GestionDabsence" />
         <module name="EnvirenmentTravail1" />
+        <module name="GestionDabsence" />
       </profile>
     </annotationProcessing>
   </component>
