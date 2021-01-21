@@ -143,7 +143,7 @@ public class SecretaireDaoImp implements SecretaireDAO {
         try {
             String requete = "DELETE FROM secretaire WHERE idSecretaire = ?";
             PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, 1);
+            statement.setInt(1, id);
             statement.executeUpdate();
             System.out.println("Secretaire Supprimé");
         } catch (SQLException throwables) {
