@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Secretaire {
 
-    private Long idSecretaire;
+    private int idSecretaire;
     private String nom;
     private String prenom;
     private String numTele;
@@ -14,12 +14,12 @@ public class Secretaire {
     private String CIN;
     private String dateNaissance;
 
-    public  Secretaire()
+    public Secretaire()
     {
 
     }
 
-    public Secretaire(Long idSecretaire, String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) {
+    public Secretaire(int idSecretaire, String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) {
         this.idSecretaire = idSecretaire;
         this.nom = nom;
         this.prenom = prenom;
@@ -30,11 +30,11 @@ public class Secretaire {
         this.dateNaissance = dateNaissance;
     }
 
-    public Long getIdSecretaire() {
+    public int getIdSecretaire() {
         return idSecretaire;
     }
 
-    public void setIdSecretaire(Long idSecretaire) {
+    public void setIdSecretaire(int idSecretaire) {
         this.idSecretaire = idSecretaire;
     }
 

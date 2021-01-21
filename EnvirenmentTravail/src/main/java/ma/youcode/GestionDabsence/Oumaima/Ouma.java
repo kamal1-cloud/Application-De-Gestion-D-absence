@@ -3,6 +3,8 @@ package ma.youcode.GestionDabsence.Oumaima;
 import ma.youcode.GestionDabsence.DAO.SecretaireDAO.SecretaireDAO;
 import ma.youcode.GestionDabsence.DAO.SecretaireDAO.SecretaireDaoImp;
 import ma.youcode.GestionDabsence.Modeles.Secretaire;
+import ma.youcode.GestionDabsence.Services.SecretaireServices;
+
 import java.util.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class Ouma {
 
         List<Secretaire> secretaires= new ArrayList<Secretaire>();
         secretaires = daoSecretaire.getAll();
+
 
         for (int i = 0; i <  secretaires.size(); i++) {
             System.out.println( secretaires.get(i).getNom());
@@ -28,18 +31,23 @@ public class Ouma {
 
         //getById
 
-        new Secretaire();
+        /*new Secretaire();
         Secretaire secretaire;
-        secretaire=daoSecretaire.getById((long) 3);
+        secretaire=daoSecretaire.getById((int) 3);
 
-
-        System.out.println(secretaire.getDateNaissance());
+        System.out.println(secretaire.getDateNaissance());*/
 
         //Save
 
-        //Secretaire secretaire1;
-        //secretaire1 = daoSecretaire.sauveSecretaire("essafir", "oumaima", "0865432456", "ouma@gmail.com", "ouma123", "HA5677", 1997 - 09 - 30);
-        //System.out.println(secretaire1);
+        /*Secretaire secretaire1;
+        secretaire1 = daoSecretaire.sauveSecretaire("metreu", "oumaima", "0865432456", "ouma@gmail.com", "ouma123", "HA5677", "1997-09-30");*/
 
+
+        //update
+        /*daoSecretaire.updateSecretaire(5,"met", "oumaima", "0865432456", "ouma@gmail.com", "ouma123", "HA5677", "1997-09-30");*/
+
+        //delete
+
+        daoSecretaire.deleteById(2);
     }
 }

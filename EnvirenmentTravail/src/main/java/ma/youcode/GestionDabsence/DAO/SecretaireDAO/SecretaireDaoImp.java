@@ -1,8 +1,8 @@
 package ma.youcode.GestionDabsence.DAO.SecretaireDAO;
 
 import ma.youcode.GestionDabsence.Connectivity.DbConnection;
-import ma.youcode.GestionDabsence.DAO.SecretaireDAO.SecretaireDAO;
 import ma.youcode.GestionDabsence.Modeles.Secretaire;
+import ma.youcode.GestionDabsence.Services.SecretaireServices;
 
 import java.math.BigInteger;
 import java.sql.*;
@@ -12,7 +12,8 @@ import java.util.List;
 
 public class SecretaireDaoImp implements SecretaireDAO {
 
-    Statement statement=null;
+    Statement statement = null;
+
     @Override
     public List<Secretaire> getAll() throws ClassNotFoundException, SQLException {
         List<Secretaire> secretaires = new ArrayList<Secretaire>();
@@ -29,16 +30,16 @@ public class SecretaireDaoImp implements SecretaireDAO {
 
         while (resultat.next()) {
             //BigInteger idSecretaire = BigInteger.valueOf(resultat.getInt("idSecretaire"));
-            Long idSecretaire = resultat.getLong("idSecretaire");
+            int idSecretaire = resultat.getInt("idSecretaire");
             String nom = resultat.getString("nom");
             String prenom = resultat.getString("prenom");
             String numTele = resultat.getString("numTele");
             String email = resultat.getString("email");
             String password = resultat.getString("password");
             String CIN = resultat.getString("CIN");
-            java.sql.Date dateNaissance = resultat.getDate("dateNaissance");
+            String dateNaissance = resultat.getString("dateNaissance");
 
-            Secretaire p = new Secretaire(idSecretaire, nom, prenom, numTele,email,password,CIN,dateNaissance);
+            Secretaire p = new Secretaire(idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
             secretaires.add(p);
         }
 
@@ -46,25 +47,25 @@ public class SecretaireDaoImp implements SecretaireDAO {
     }
 
 
-
     @Override
-    public Secretaire getById(Long idSecretaire) throws ClassNotFoundException, SQLException {
+    public Secretaire getById(int idSecretaire) throws ClassNotFoundException, SQLException {
         Secretaire secretaire = null;
 
-        String requete = "Select * From Secretaire Where id  = ?";
+        String requete = "Select * From Secretaire Where idSecretaire  = ?";
         PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete);
 
-        statement.setLong (1, idSecretaire);
-        ResultSet resultat = statement.executeQuery();
+        statement.setInt(1, idSecretaire);
+        ResultSet result = statement.executeQuery();
 
-        if (resultat.next()) {
-            String nom = resultat.getString("nom");
-            String prenom = resultat.getString("prenom");
-            String numTele = resultat.getString("numTele");
-            String email = resultat.getString("email");
-            String password = resultat.getString("password");
-            String CIN = resultat.getString("CIN");
-            java.sql.Date dateNaissance = resultat.getDate("dateNaissance");
+        if (result.next()) {
+            String nom = result.getString("nom");
+            String prenom = result.getString("prenom");
+            String numTele = result.getString("numTele");
+            String email = result.getString("email");
+            String password = result.getString("password");
+            String CIN = result.getString("CIN");
+            String dateNaissance = result.getString("dateNaissance");
+            //Date dateNaissance = result.getDate(java.sql.Date.valueOf("2020-12-10"));
 
 
             secretaire = new Secretaire(idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
@@ -74,19 +75,19 @@ public class SecretaireDaoImp implements SecretaireDAO {
     }
 
     @Override
-    public Secretaire sauveSecretaire(String nom, String prenom, String numTele, String email, String password, String CIN, Date dateNaissance) throws ClassNotFoundException, SQLException {
+    public Secretaire sauveSecretaire(String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) throws ClassNotFoundException, SQLException {
         Secretaire reponse = null;
         long idSecretaire = -1;
 
-        String requete = "Insert into Secretaire (idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance) Values (?,?,?,?,?,?,?)";
+        String requete = "Insert INTO secretaire ( nom, prenom, numTele, email, password, CIN, dateNaissance) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, nom);
         statement.setString(2, prenom);
         statement.setString(3, numTele);
-        statement.setString(4,email );
+        statement.setString(4, email);
         statement.setString(5, password);
         statement.setString(6, CIN);
-        statement.setDate(7, (java.sql.Date) dateNaissance);
+        statement.setString(7,dateNaissance);
         statement.executeUpdate();
 
         ResultSet rs = statement.getGeneratedKeys();
@@ -95,18 +96,68 @@ public class SecretaireDaoImp implements SecretaireDAO {
             idSecretaire = rs.getLong(1);
         }
 
-        reponse = new Secretaire((Long) idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
+        reponse = new Secretaire((int) idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
 
         return reponse;
     }
 
-    @Override
-    public int updateSecretaire(Long idSecretaire, String nom, String prenom, String numTele, String email, String password, String CIN, Date dateNaissance) throws ClassNotFoundException, SQLException {
-        return 0;
-    }
+
+
 
     @Override
-    public int deleteById(BigInteger idSecretaire) {
-        return 0;
+    public void updateSecretaire(int idSecretaire,String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) throws ClassNotFoundException, SQLException {
+        Connection conn = null;
+        try{
+            String requete = "Update Secretaire set nom = ?, prenom = ?, numTele = ?, email = ?, password = ?, CIN = ?, dateNaissance = ? where idSecretaire= ?";
+            PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, nom);
+            statement.setString(2, prenom);
+            statement.setString(3, numTele);
+            statement.setString(4, email);
+            statement.setString(5, password);
+            statement.setString(6, CIN);
+            statement.setString(7, dateNaissance);
+            statement.setInt(8, idSecretaire);
+            statement.executeUpdate();
+        }
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+
     }
+
+
+
+    @Override
+    public void deleteById(int id) throws ClassNotFoundException, SQLException {
+        Connection conn = null;
+        try {
+            String requete = "DELETE FROM secretaire WHERE idSecretaire = ?";
+            PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, 1);
+            statement.executeUpdate();
+            System.out.println("Secretaire Supprimé");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }
