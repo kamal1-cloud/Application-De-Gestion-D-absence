@@ -1,6 +1,9 @@
 package ma.youcode.GestionDabsence.DAO.SecretaireDAO;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import ma.youcode.GestionDabsence.Connectivity.DbConnection;
+import ma.youcode.GestionDabsence.Modeles.ApprenantAbsence;
 import ma.youcode.GestionDabsence.Modeles.Secretaire;
 import ma.youcode.GestionDabsence.Services.SecretaireServices;
 
@@ -157,6 +160,34 @@ public class SecretaireDaoImp implements SecretaireDAO {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public ObservableList<ApprenantAbsence> AfficheApprantAbsence() {
+        ObservableList<ApprenantAbsence> ApprenantsAbsentes= FXCollections.observableArrayList();
+        Connection conn = null;
+        try {
+
+            String requete="select nom,prenom,CIN,name,dateDebu,dateFin,isJustifie,retard from apprenant,absence,specialite WHERE apprenant.idApprenant=absence.idApprenant and apprenant.specialite=specialite.idSpecialite";
+            PreparedStatement statement = DbConnection.getConnection() .prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.executeQuery();
+            ApprenantAbsence apprenantAbsente;
+            while (rs.next()) {
+                apprenantAbsente = new ApprenantAbsence(rs.getString("cin"),rs.getString("nom"),rs.getString("prenom"),rs.getString("name"),rs.getString("dateDebu"),rs.getString("dateFin"),rs.getString("isJustifie"),rs.getInt("retard"));
+                ApprenantsAbsentes.add(apprenantAbsente);
+            }
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return ApprenantsAbsentes;
     }
 
 

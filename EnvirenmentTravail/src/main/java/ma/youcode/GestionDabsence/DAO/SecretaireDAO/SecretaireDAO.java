@@ -1,5 +1,7 @@
 package ma.youcode.GestionDabsence.DAO.SecretaireDAO;
 
+import javafx.collections.ObservableList;
+import ma.youcode.GestionDabsence.Modeles.ApprenantAbsence;
 import ma.youcode.GestionDabsence.Modeles.Secretaire;
 
 import java.math.BigInteger;
@@ -18,4 +20,6 @@ public interface SecretaireDAO {
 
 
     public void deleteById(int id) throws ClassNotFoundException, SQLException;
+
+    public ObservableList<ApprenantAbsence> AfficheApprantAbsence();
 }
