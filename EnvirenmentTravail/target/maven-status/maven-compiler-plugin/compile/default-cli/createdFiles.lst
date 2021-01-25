@@ -1,20 +1,15 @@
-ma\youcode\GestionDabsence\DAO\AdminDAO\AdminDAO.class
-ma\youcode\GestionDabsence\DAO\AdminDAO\AdminDaoImp.class
-ma\youcode\GestionDabsence\DAO\ApprenantDAO\ApprenantDAO.class
-ma\youcode\GestionDabsence\DAO\FormateurDAO\FormateurDAO.class
-ma\youcode\GestionDabsence\Services\FormateurServices.class
-ma\youcode\GestionDabsence\DAO\FormateurDAO\FormateurDaoImp.class
 ma\youcode\GestionDabsence\Modeles\Apprenant.class
+<<<<<<< Updated upstream
 ma\youcode\GestionDabsence\Modeles\Formateur.class
+ma\youcode\GestionDabsence\Oumaima\Ouma.class
 ma\youcode\GestionDabsence\Connectivity\DbConnection.class
 ma\youcode\GestionDabsence\Services\SecretaireServices.class
 ma\youcode\GestionDabsence\DAO\SecretaireDAO\SecretaireDaoImp.class
 ma\youcode\GestionDabsence\Modeles\Secretaire.class
 ma\youcode\GestionDabsence\Services\ApprenentServices.class
 ma\youcode\GestionDabsence\SecondaryController.class
+=======
+ma\youcode\GestionDabsence\DAO\FormateurDAO\FormateurDAO.class
+>>>>>>> Stashed changes
 module-info.class
-ma\youcode\GestionDabsence\App.class
-ma\youcode\GestionDabsence\DAO\SecretaireDAO\SecretaireDAO.class
-ma\youcode\GestionDabsence\PrimaryController.class
-ma\youcode\GestionDabsence\DAO\ApprenantDAO\ApprenantDaoImp.class
-ma\youcode\GestionDabsence\Modeles\Admin.class
+ma\youcode\GestionDabsence\DAO\FormateurDAO\FormateurDaoImp.class
