@@ -1,13 +1,11 @@
 package ma.youcode.GestionDabsence.Modeles;
 
 public class Specialite {
-
-
     private Long idSpecialite;
     private String nom;
 
 
-    public Specialite( ) {
+    public Specialite() {
 
     }
 

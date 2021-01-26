@@ -37,7 +37,8 @@ public class AdminDaoImp implements AdminDAO {
         DataSource dataSource = (DataSource) DbConnection.getConnection();
         conn = dataSource.getConnection();
 
-        String query = "INSERT INTO user (nom, prenom, email, mail, password, CIN, dateNaissance) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO User (nom, prenom, email, mail, password, CIN, dateNaissance) VALUES (?,?,?,?,?,?,?)";
+
         PreparedStatement preparedStatement = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1,nom);
         preparedStatement.setString(2,prenom);

@@ -15,13 +15,13 @@ public class User {
 
     }
 
-    public User(long idUser, String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance, String role) {
+    public User(long idUser, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, String role) {
         this.idUser = idUser;
         this.nom = nom;
         this.prenom = prenom;
         this.numTele = numTele;
         this.email = email;
-        this.password = password;
+        //this.password = password;
         this.CIN = CIN;
         this.dateNaissance = dateNaissance;
         this.role = role;

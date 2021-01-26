@@ -18,10 +18,10 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        scene = new Scene(loadFXML("Secretaire"), 640, 480);
+        //scene = new Scene(loadFXML("users"), 640, 480);
 
         //TODO DONT FORGET THE SIZE 640, 480
-        scene = new Scene(loadFXML("admin"), 1200, 700);
+        scene = new Scene(loadFXML("admin"), 1200, 900);
 
         stage.setScene(scene);
         stage.show();

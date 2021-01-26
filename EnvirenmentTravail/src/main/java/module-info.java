@@ -6,6 +6,7 @@ module ma.youcode.GestionDabsence {
     requires com.jfoenix;
     opens ma.youcode.GestionDabsence to javafx.fxml;
     exports ma.youcode.GestionDabsence;
+    opens ma.youcode.GestionDabsence.Modeles to javafx.base ;
 
 
 }

@@ -5,18 +5,20 @@ public class Classe {
     private String Nom;
     private String salle;
     private boolean isClasse;
-    private long idFormateur;
+    private Long idFormateur;
 
     public Classe( ) {
      }
 
-    public Classe(Long idClasse, String nom, String salle, boolean isClasse, long idFormateur) {
+    public Classe(Long idClasse, String nom, String salle, Long idFormateur) {
         this.idClasse = idClasse;
-        Nom = nom;
+        this.Nom = nom;
         this.salle = salle;
-        this.isClasse = isClasse;
+        //this.isClasse = isClasse;
         this.idFormateur = idFormateur;
     }
+
+
 
     public Long getIdClasse() {
         return idClasse;

@@ -1,0 +1,13 @@
+.sideBar {
+    -fx-background-color: #ddd;
+    /*#05051E;*/
+}
+
+.searchForm {
+    -fx-background-color: #c1c1c1;
+}
+
+.searchBtn {
+    -fx-background-color: blue;
+    -fx-text-fill: #fff;
+}

@@ -1,7 +1,7 @@
 package ma.youcode.GestionDabsence.DAO.FormateurDAO;
 
 
-import ma.youcode.GestionDabsence.Modeles.*;
+import ma.youcode.GestionDabsence.Modeles.Apprenant;
 import ma.youcode.GestionDabsence.Connectivity.DbConnection;
 import java.sql.*;
 import java.text.ParseException;
@@ -17,30 +17,33 @@ public class FormateurDaoImp implements FormateurDAO {
     @Override
     public List<Apprenant> getAll() throws ClassNotFoundException, SQLException {
         List<Apprenant> apprenants = new ArrayList<Apprenant>();
+        conn = DbConnection.getConnection();
+        statement = conn.createStatement();
 
-        statement = DbConnection.getConnection().createStatement();
-
-        String query = "Select * From Apprenant";
+        String query = "select u.idUser, u.nom, u.prenom, u.numTele, u.email, u.CIN, u.dateNaissance from User u, Role r where u.`role` = r.idRole and r.nom='formateur';";
 
         rst = statement.executeQuery(query);
-        System.out.println("idApprenant\t\tnom\t\tprenom\t\tnumTele\t\t\t\temail\t\t\t\tpassword\t\t\t\tCIN\t\tdateNaissance\t\tclasse\t\tspecialite\n");
         while (rst.next()) {
-            Long idApprenant = rst.getLong("idApprenant");
+            Long idApprenant = rst.getLong("idUser");
             String nom = rst.getString("nom");
             String prenom = rst.getString("prenom");
             String numTele = rst.getString("numTele");
             String email = rst.getString("email");
-            String password = rst.getString("password");
+            //ring password = rst.getString("password");
             String CIN = rst.getString("CIN");
-            Date dateNaissance = rst.getDate("dateNaissance");
-            Long classe = rst.getLong("classe");
-            Long  specialite = rst.getLong("specialite");
-            System.out.println(idApprenant+ "\t\t\t\t" +nom + "\t" + prenom + "\t\t" + numTele + "\t\t" + email + "\t\t" + password + "\t\t" + CIN + "\t\t" + dateNaissance + "\t\t" + classe + "\t\t" + specialite);
-
+            String dateNaissance = rst.getString("dateNaissance");
+            //ng classe = rst.getLong("classe");
+            //ng  specialite = rst.getLong("specialite");
+            //stem.out.println(idApprenant+ "\t\t\t\t" +nom + "\t" + prenom + "\t\t" + numTele + "\t\t" + email + "\t\t" + password + "\t\t" + CIN + "\t\t" + dateNaissance + "\t\t" + classe + "\t\t" + specialite);
+            //public Apprenant(Long idApprenant, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance)
             // Créer l'objet Apprenant
-            Apprenant apprenant = new Apprenant(idApprenant, nom, prenom,numTele,email,password,CIN,dateNaissance,classe,specialite);
+            //prenant apprenant = new Apprenant(idApprenant, nom, prenom,numTele,email,password,CIN, dateNaissance,classe,specialite);
+            Apprenant apprenant = new Apprenant(idApprenant, nom, prenom,numTele,email,CIN, dateNaissance);
             apprenants.add(apprenant);
         }
+        rst.close();
+        statement.close();
+        conn.close();
         return apprenants;
     }
     public void sauveApprenant() throws ClassNotFoundException, SQLException, ParseException {
