@@ -48,6 +48,6 @@ public class Ouma {
 
         //delete
 
-        daoSecretaire.deleteById(2);
+        daoSecretaire.deleteById(5);
     }
 }

@@ -27,13 +27,13 @@ public class SecretaireDaoImp implements SecretaireDAO {
 
 
         ResultSet resultat;
-        String requete = "Select * From Secretaire";
+        String requete = "Select * From User";
 
         resultat = statement.executeQuery(requete);
 
         while (resultat.next()) {
             //BigInteger idSecretaire = BigInteger.valueOf(resultat.getInt("idSecretaire"));
-            int idSecretaire = resultat.getInt("idSecretaire");
+            int idUser = resultat.getInt("idUser");
             String nom = resultat.getString("nom");
             String prenom = resultat.getString("prenom");
             String numTele = resultat.getString("numTele");
@@ -42,7 +42,7 @@ public class SecretaireDaoImp implements SecretaireDAO {
             String CIN = resultat.getString("CIN");
             String dateNaissance = resultat.getString("dateNaissance");
 
-            Secretaire p = new Secretaire(idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
+            Secretaire p = new Secretaire(idUser, nom, prenom, numTele, email, password, CIN, dateNaissance);
             secretaires.add(p);
         }
 
@@ -144,7 +144,7 @@ public class SecretaireDaoImp implements SecretaireDAO {
     public void deleteById(int id) throws ClassNotFoundException, SQLException {
         Connection conn = null;
         try {
-            String requete = "DELETE FROM secretaire WHERE idSecretaire = ?";
+            String requete = "DELETE FROM User WHERE idUser = ?";
             PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id);
             statement.executeUpdate();
@@ -190,5 +190,27 @@ public class SecretaireDaoImp implements SecretaireDAO {
         return ApprenantsAbsentes;
     }
 
+//    @Override
+//    public static void UpdateJustification(String justification, String cin) {
+//
+//        Connection conn = null;
+//        try {
+//            String requete = "Update absence set justification= ? where id_appr = ?";
+//            PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+//
+//            statement.setString(1, justification);
+//            statement.setString(2, cin);
+//            statement.executeUpdate();
+//        } catch (SQLException | ClassNotFoundException throwables) {
+//            throwables.printStackTrace();
+//        } finally {
+//            try {
+//                if (conn != null) {
+//                    conn.close();
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+        }
 
-}
+

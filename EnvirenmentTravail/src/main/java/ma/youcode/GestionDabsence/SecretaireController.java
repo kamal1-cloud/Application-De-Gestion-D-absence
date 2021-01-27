@@ -18,6 +18,8 @@ import ma.youcode.GestionDabsence.Connectivity.DbConnection;
 import ma.youcode.GestionDabsence.DAO.SecretaireDAO.SecretaireDaoImp;
 import ma.youcode.GestionDabsence.Modeles.ApprenantAbsence;
 
+import javax.swing.*;
+
 public class SecretaireController implements Initializable {
 
     @FXML
@@ -77,6 +79,13 @@ public class SecretaireController implements Initializable {
         colretard.setCellValueFactory(new PropertyValueFactory<ApprenantAbsence, Integer>("retard"));
         TableAffiche.setItems(list);
     }
+
+//    @FXML
+//    private void updateAb() throws SQLException, ClassNotFoundException {
+//        SecretaireDaoImp.UpdateJustification(combo_jist.getValue().toString(),txt_cin.getText());
+//        JOptionPane.showMessageDialog(null, "la justification bien modifier");
+//        showApprenantsAbsences();
+//    }
 
 
 }
