@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #d1d1d1;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="500.0" style="-fx-background-color: #d1d1d1;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.youcode.GestionDabsence.AddUser">
    <children>
-      <TextField alignment="CENTER" layoutX="27.0" layoutY="43.0" prefHeight="38.0" prefWidth="346.0" promptText="nom" />
-      <TextField alignment="CENTER" layoutX="25.0" layoutY="103.0" prefHeight="38.0" prefWidth="346.0" promptText="prenom" />
-      <TextField alignment="CENTER" layoutX="27.0" layoutY="160.0" prefHeight="38.0" prefWidth="346.0" promptText="email" />
-      <TextField alignment="CENTER" layoutX="27.0" layoutY="216.0" prefHeight="38.0" prefWidth="346.0" promptText="number télé" />
-      <TextField alignment="CENTER" layoutX="28.0" layoutY="276.0" prefHeight="38.0" prefWidth="346.0" promptText="CIN" />
-      <TextField alignment="CENTER" layoutX="28.0" layoutY="332.0" prefHeight="38.0" prefWidth="346.0" promptText="nom" />
-      <JFXDatePicker defaultColor="#003a8f" layoutX="29.0" layoutY="391.0" prefHeight="29.0" prefWidth="345.0" promptText="date naissancce" />
-      <PasswordField alignment="CENTER" layoutX="29.0" layoutY="448.0" prefHeight="38.0" prefWidth="346.0" promptText="password" stylesheets="@main.css" />
+      <TextField fx:id="nom" alignment="CENTER" layoutX="80.0" layoutY="43.0" prefHeight="38.0" prefWidth="346.0" promptText="nom" text="  " />
+      <TextField fx:id="prenom" alignment="CENTER" layoutX="81.0" layoutY="103.0" prefHeight="38.0" prefWidth="346.0" promptText="prenom" />
+      <TextField fx:id="email" alignment="CENTER" layoutX="81.0" layoutY="160.0" prefHeight="38.0" prefWidth="346.0" promptText="email" />
+      <TextField fx:id="numTele" alignment="CENTER" layoutX="80.0" layoutY="216.0" prefHeight="38.0" prefWidth="346.0" promptText="number télé" />
+      <TextField fx:id="cin" alignment="CENTER" layoutX="80.0" layoutY="276.0" prefHeight="38.0" prefWidth="346.0" promptText="CIN" />
+      <TextField alignment="CENTER" layoutX="79.0" layoutY="332.0" prefHeight="38.0" prefWidth="346.0" promptText="nom" />
+      <PasswordField fx:id="password" alignment="CENTER" layoutX="79.0" layoutY="448.0" prefHeight="38.0" prefWidth="346.0" promptText="password" stylesheets="@main.css" />
+      <DatePicker fx:id="dateNaissance" layoutX="78.0" layoutY="392.0" prefHeight="38.0" prefWidth="346.0" promptText="date Naissance" />
+      <JFXButton layoutX="188.0" layoutY="738.0" onAction="#ajouterUser" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: #000;" text="ajouter" textFill="WHITE" />
+      <ComboBox fx:id="roleCombo" layoutX="287.0" layoutY="521.0" prefHeight="38.0" prefWidth="138.0" promptText="role" style="-fx-background-color: #fff;" />
+      <ComboBox fx:id="classeCombo" layoutX="289.0" layoutY="584.0" prefHeight="38.0" prefWidth="138.0" promptText="classe" style="-fx-background-color: #fff;" />
+      <HBox layoutX="287.0" layoutY="640.0" prefHeight="38.0" prefWidth="138.0">
+         <children>
+            <ComboBox fx:id="specialiteCombo" prefHeight="38.0" prefWidth="138.0" promptText="specialité" style="-fx-background-color: #fff;" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

@@ -59,10 +59,15 @@ public class AdminController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             secreture   = secretaireDaoImp.getAll();
+            System.out.println("secreture size is" + secreture.size());
             apprenants  = apprenantDaoImp.getAll();
+            System.out.println("apprenant size is" + apprenants.size());
             formateur   = formateurDaoImp.getAll();
+            System.out.println("formateur size is" + formateur.size());
             specialites = specialiteDaoImp.getAll();
+            System.out.println("specialite size is" + specialites.size());
             classes     = classDaoImp.getAll();
+            System.out.println("classes" + classes.size());
 
             numApprenant.setText(String.valueOf(apprenants.size()));
             numSecretaire.setText(String.valueOf(secreture.size()));

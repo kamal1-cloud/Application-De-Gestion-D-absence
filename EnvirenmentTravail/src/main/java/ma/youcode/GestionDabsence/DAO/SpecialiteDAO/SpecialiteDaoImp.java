@@ -34,4 +34,36 @@ public class SpecialiteDaoImp implements SpecialiteDAO{
         conn.close();
         return specialites;
     }
+
+    /*
+    @Override
+    public void UpdateJustification(String justification, String cin) {
+
+        Connection conn = null;
+        try{
+            String requete = "Update absence set justification= ? where id_appr = ?";
+            PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+
+            statement.setString(1, justification);
+            statement.setString(2, cin);
+            statement.executeUpdate();
+        }
+        catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        /*Controleur
+        @FXML
+        private void updateAb() throws SQLException, ClassNotFoundException {
+            secretaireDaoImp.UpdateJustification(combo_jist.getValue().toString(),txt_cin.getText());
+            JOptionPane.showMessageDialog(null, "la justification bien modifier");
+            showApprenantsAbsences();
+        }*/
 }

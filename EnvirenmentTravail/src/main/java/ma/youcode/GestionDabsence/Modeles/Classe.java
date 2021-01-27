@@ -18,6 +18,11 @@ public class Classe {
         this.idFormateur = idFormateur;
     }
 
+    public Classe(Long idClasse, String nom, String salle) {
+        this.idClasse = idClasse;
+        this.Nom = nom;
+        this.salle = salle;
+    }
 
 
     public Long getIdClasse() {

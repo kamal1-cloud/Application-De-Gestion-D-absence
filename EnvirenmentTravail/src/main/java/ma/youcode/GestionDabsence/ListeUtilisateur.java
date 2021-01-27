@@ -1,7 +1,6 @@
 package ma.youcode.GestionDabsence;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTreeTableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -10,21 +9,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TreeItemPropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import ma.youcode.GestionDabsence.DAO.ApprenantDAO.ApprenantDaoImp;
 import ma.youcode.GestionDabsence.DAO.RolesDAO.RolesDaoImp;
 import ma.youcode.GestionDabsence.DAO.UserDAO.UserDaoImp;
-import ma.youcode.GestionDabsence.Modeles.Apprenant;
+import ma.youcode.GestionDabsence.Modeles.Classe;
 import ma.youcode.GestionDabsence.Modeles.Role;
+import ma.youcode.GestionDabsence.Modeles.Specialite;
 import ma.youcode.GestionDabsence.Modeles.User;
-import ma.youcode.GestionDabsence.helper.AlertBox;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -76,6 +69,12 @@ public class ListeUtilisateur implements Initializable {
     /** liste of the role */
     ArrayList<Role> roleArrayList;
 
+    /** liste of the role */
+    ArrayList<Classe> classesArrayList;
+
+    /** liste of the role */
+    ArrayList<Specialite> specialitesArrayList;
+
     /** */
     ObservableList<User> users;
 
@@ -94,6 +93,7 @@ public class ListeUtilisateur implements Initializable {
         try {
       //      apprenantTableView = new TableView<>();
             roleArrayList = rolesDaoImp.getAll();
+            //specialitesArrayList =
             /** observable list of the roles */
             ObservableList<String> roleObservableList = FXCollections.observableArrayList();
             for (Role r : roleArrayList) {
@@ -154,9 +154,13 @@ public class ListeUtilisateur implements Initializable {
     void ajouterUser(ActionEvent event) {
         /**  load fxml file */
 
-        AlertBox.display("Title of Window", "Wow this alert box is awesome!");
+        try {
+            AlertBox.display("Ajouter Utilisateurs");
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
-
 
     @FXML
     void modifierUser(ActionEvent event) {

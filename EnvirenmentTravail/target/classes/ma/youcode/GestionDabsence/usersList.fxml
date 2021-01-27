@@ -24,7 +24,8 @@
          </columns>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding></TableView>
+         </padding>
+       </TableView>
       <ComboBox fx:id="filterRole" layoutX="143.0" layoutY="40.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#getSelectedRole" prefHeight="38.0" prefWidth="256.0" promptText="all utilisateurs" style="-fx-background-color: #fff;" />
       <HBox layoutX="769.0" layoutY="35.0" prefHeight="46.0" prefWidth="1041.0">
          <children>

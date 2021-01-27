@@ -27,8 +27,8 @@ public class ClassDaoImp implements ClasseDAO{
                 Long idClasse = rst.getLong("idClasse");
                 String nom = rst.getString("nom");
                 String salle = rst.getString("salle");
-                Long idFormateur = rst.getLong("idFormateur");
-                Classe cl = new Classe(idClasse, nom, salle, idFormateur);
+                //Long idFormateur = rst.getLong("idFormateur");
+                Classe cl = new Classe(idClasse, nom, salle);
                 classes.add(cl);
             }
             rst.close();
