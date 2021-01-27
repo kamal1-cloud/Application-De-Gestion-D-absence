@@ -13,4 +13,5 @@ public interface ApprenantDAO {
     public ArrayList<Apprenant> getAll() throws ClassNotFoundException, SQLException;
 
     public Apprenant getById(Long idApprenant) throws ClassNotFoundException, SQLException;
+    public boolean removeApprenantById(Long idApprenant) throws ClassNotFoundException, SQLException;
 }

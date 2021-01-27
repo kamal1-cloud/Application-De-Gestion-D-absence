@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #d1d1d1;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField alignment="CENTER" layoutX="27.0" layoutY="43.0" prefHeight="38.0" prefWidth="346.0" promptText="nom" />
+      <TextField alignment="CENTER" layoutX="25.0" layoutY="103.0" prefHeight="38.0" prefWidth="346.0" promptText="prenom" />
+      <TextField alignment="CENTER" layoutX="27.0" layoutY="160.0" prefHeight="38.0" prefWidth="346.0" promptText="email" />
+      <TextField alignment="CENTER" layoutX="27.0" layoutY="216.0" prefHeight="38.0" prefWidth="346.0" promptText="number télé" />
+      <TextField alignment="CENTER" layoutX="28.0" layoutY="276.0" prefHeight="38.0" prefWidth="346.0" promptText="CIN" />
+      <TextField alignment="CENTER" layoutX="28.0" layoutY="332.0" prefHeight="38.0" prefWidth="346.0" promptText="nom" />
+      <JFXDatePicker defaultColor="#003a8f" layoutX="29.0" layoutY="391.0" prefHeight="29.0" prefWidth="345.0" promptText="date naissancce" />
+      <PasswordField alignment="CENTER" layoutX="29.0" layoutY="448.0" prefHeight="38.0" prefWidth="346.0" promptText="password" stylesheets="@main.css" />
+   </children>
+</AnchorPane>

@@ -5,25 +5,23 @@ import ma.youcode.GestionDabsence.DAO.ApprenantDAO.ApprenantDAO;
 import ma.youcode.GestionDabsence.Modeles.Apprenant;
 import ma.youcode.GestionDabsence.Modeles.Secretaire;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApprenantDaoImp implements ApprenantDAO {
-    Statement statement = null;
+    PreparedStatement statement = null;
     Connection conn;
+    ResultSet resultat;
     @Override
     public ArrayList<Apprenant> getAll() throws ClassNotFoundException, SQLException {
         ArrayList<Apprenant> apprenants = new ArrayList<>();
 
         conn = DbConnection.getConnection();
-        statement = conn.createStatement();
-        ResultSet resultat;
+
         String requete = "select u.idUser, u.nom, u.prenom, u.numTele, u.email, u.CIN, u.dateNaissance from User u, Role r where u.`role` = r.idRole and r.nom='apprenant'";
-        resultat = statement.executeQuery(requete);
+        statement = conn.prepareStatement(requete);
+        resultat = statement.executeQuery();
         while (resultat.next()) {
             //BigInteger idSecretaire = BigInteger.valueOf(resultat.getInt("idSecretaire"));
             Long idUser = resultat.getLong("idUser");
@@ -50,5 +48,28 @@ public class ApprenantDaoImp implements ApprenantDAO {
     @Override
     public Apprenant getById(Long idApprenant) throws ClassNotFoundException, SQLException {
         return null;
+    }
+
+    /** don't forget to complete this function */
+    @Override
+    public boolean removeApprenantById(Long idApprenant) throws ClassNotFoundException, SQLException {
+        conn = DbConnection.getConnection();
+        String requete = "DELETE FROM User WHERE idUser=?;";
+        statement = conn.prepareStatement(requete);
+
+        statement.setLong(1, idApprenant);
+        int res = statement.executeUpdate();
+
+        resultat.close();
+        statement.close();
+        conn.close();
+        System.out.println(res);
+        if (res > 0) {
+            return true;
+        }
+        else {
+            return true;
+        }
+
     }
 }

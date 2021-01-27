@@ -1,5 +1,6 @@
 package ma.youcode.GestionDabsence;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import ma.youcode.GestionDabsence.DAO.ApprenantDAO.ApprenantDaoImp;
 import ma.youcode.GestionDabsence.DAO.RolesDAO.RolesDaoImp;
@@ -17,6 +20,7 @@ import ma.youcode.GestionDabsence.DAO.UserDAO.UserDaoImp;
 import ma.youcode.GestionDabsence.Modeles.Apprenant;
 import ma.youcode.GestionDabsence.Modeles.Role;
 import ma.youcode.GestionDabsence.Modeles.User;
+import ma.youcode.GestionDabsence.helper.AlertBox;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -61,6 +65,12 @@ public class ListeUtilisateur implements Initializable {
 
     @FXML
     private ComboBox<String> filterRole;
+    @FXML
+    private TextField searchInput;
+
+    @FXML
+    private JFXButton searchBtn;
+
    // ApprenantDaoImp apprenantDaoImp;
 
     /** liste of the role */
@@ -89,6 +99,7 @@ public class ListeUtilisateur implements Initializable {
             for (Role r : roleArrayList) {
                 roleObservableList.add(r.getNom());
             }
+            roleObservableList.add("all");
             /** end observables list of the roles */
             users = FXCollections.observableArrayList(userDaoImp.getAllUser());
             usersFiltred = new FilteredList<>(users);
@@ -110,12 +121,72 @@ public class ListeUtilisateur implements Initializable {
             e.printStackTrace();
         }
     }
-
+    /** filtre the table selon the role selected */
     public void getSelectedRole(ActionEvent actionEvent) {
         actionEvent.consume();
-        System.out.println(filterRole.getValue());
-        /** filtre the table selon the role selected */
-        Predicate<User> filter = item -> item.getRole().equals(filterRole.getValue());
-        usersFiltred.setPredicate(filter);
+        String target = filterRole.getValue();
+
+        if (target.equals("all")) {
+            usersFiltred.setPredicate(null);
+        }
+        else {
+            Predicate<User> filter = item -> item.getRole().equals(target);
+            usersFiltred.setPredicate(filter);
+        }
     }
+
+    /** search in the users table for the target user */
+    @FXML
+    void getchoosedUser(ActionEvent event) {
+        event.consume();
+        String target = searchInput.getText();
+        if (target.equals("")) {
+            usersFiltred.setPredicate(null);
+        } else {
+            Predicate<User> filter = item -> (item.getNom().equals(target) || item.getCIN().equals(target));
+            usersFiltred.setPredicate(filter);
+        }
+    }
+
+
+    /** ajouter a user */
+    @FXML
+    void ajouterUser(ActionEvent event) {
+        /**  load fxml file */
+
+        AlertBox.display("Title of Window", "Wow this alert box is awesome!");
+    }
+
+
+    @FXML
+    void modifierUser(ActionEvent event) {
+
+    }
+
+    /** supprimer user*/
+    @FXML
+    void supprimerUser(ActionEvent event) {
+        try {
+            User target = usersListe.getSelectionModel().getSelectedItem();
+            /** selected user is apprenant */
+            if (target.getRole().equals("apprenant")) {
+
+            }
+            /** seected user is formateur */
+            else if (target.getRole() == "formateur") {
+
+            }
+            /** selected user is secreture */
+            else {
+                boolean res = userDaoImp.removeUserById(target.getIdUser());
+                usersFiltred.getSource().remove(target);
+                System.out.println("delete");
+            }
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
 }

@@ -45,4 +45,26 @@ public class UserDaoImp implements UserDAO{
         conn.close();
         return users;
     }
+
+    @Override
+    public  boolean removeUserById(Long id) throws ClassNotFoundException, SQLException {
+        conn = DbConnection.getConnection();
+        String requete = "DELETE FROM User WHERE idUser=?;";
+        statement = conn.prepareStatement(requete);
+
+        statement.setLong(1, id);
+        int res = statement.executeUpdate();
+
+        resultat.close();
+        statement.close();
+        conn.close();
+        System.out.println(res);
+        if (res > 0) {
+            return true;
+        }
+        else {
+            return true;
+        }
+
+    }
 }
