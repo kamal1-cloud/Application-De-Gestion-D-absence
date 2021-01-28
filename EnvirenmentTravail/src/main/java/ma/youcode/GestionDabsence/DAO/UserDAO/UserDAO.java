@@ -9,4 +9,5 @@ public interface UserDAO {
     public ArrayList<User> getAllUser() throws ClassNotFoundException, SQLException;
     public boolean removeUserById(Long id) throws ClassNotFoundException, SQLException;
 
+
 }

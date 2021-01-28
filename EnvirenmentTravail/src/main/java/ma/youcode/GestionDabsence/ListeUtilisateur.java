@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import ma.youcode.GestionDabsence.DAO.AdminDAO.AdminDaoImp;
 import ma.youcode.GestionDabsence.DAO.RolesDAO.RolesDaoImp;
 import ma.youcode.GestionDabsence.DAO.UserDAO.UserDaoImp;
 import ma.youcode.GestionDabsence.Modeles.Classe;
@@ -30,6 +31,7 @@ public class ListeUtilisateur implements Initializable {
     */
     UserDaoImp userDaoImp;
     RolesDaoImp rolesDaoImp;
+    AdminDaoImp adminDaoImp;
     @FXML
     private TableView<User> usersListe;
     @FXML
@@ -69,41 +71,36 @@ public class ListeUtilisateur implements Initializable {
     /** liste of the role */
     ArrayList<Role> roleArrayList;
 
-    /** liste of the role */
-    ArrayList<Classe> classesArrayList;
-
-    /** liste of the role */
-    ArrayList<Specialite> specialitesArrayList;
-
-    /** */
-    ObservableList<User> users;
-
     /** */
     FilteredList<User> usersFiltred;
     /** */
+
+    SingletonObject singletonObject;
 
 
     public ListeUtilisateur() {
         //apprenantDaoImp = new ApprenantDaoImp();
         userDaoImp = new UserDaoImp();
         rolesDaoImp = new RolesDaoImp();
+        adminDaoImp = new AdminDaoImp();
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            singletonObject = SingletonObject.getSingletonObject();
       //      apprenantTableView = new TableView<>();
-            roleArrayList = rolesDaoImp.getAll();
+            roleArrayList = singletonObject.roles;
             //specialitesArrayList =
             /** observable list of the roles */
             ObservableList<String> roleObservableList = FXCollections.observableArrayList();
             for (Role r : roleArrayList) {
                 roleObservableList.add(r.getNom());
             }
+            /** add all choice in the search drop down */
             roleObservableList.add("all");
             /** end observables list of the roles */
-            users = FXCollections.observableArrayList(userDaoImp.getAllUser());
-            usersFiltred = new FilteredList<>(users);
-            System.out.println(users.size());
+            usersFiltred = new FilteredList<>(singletonObject.users);
+            System.out.println("the size of the users filtred list is " + singletonObject.users.size());
             nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
             prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
             email.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -164,7 +161,7 @@ public class ListeUtilisateur implements Initializable {
 
     @FXML
     void modifierUser(ActionEvent event) {
-
+        User target = usersListe.getSelectionModel().getSelectedItem();
     }
 
     /** supprimer user*/
@@ -172,20 +169,12 @@ public class ListeUtilisateur implements Initializable {
     void supprimerUser(ActionEvent event) {
         try {
             User target = usersListe.getSelectionModel().getSelectedItem();
-            /** selected user is apprenant */
-            if (target.getRole().equals("apprenant")) {
 
-            }
-            /** seected user is formateur */
-            else if (target.getRole() == "formateur") {
-
-            }
-            /** selected user is secreture */
-            else {
-                boolean res = userDaoImp.removeUserById(target.getIdUser());
-                usersFiltred.getSource().remove(target);
-                System.out.println("delete");
-            }
+            userDaoImp.removeUserById(target.getIdUser());
+            /** check if happen any problem display error message
+             * and after that we can safely remove if from the users list
+             * */
+            singletonObject.users.remove(target);
         }
         catch(Exception ex) {
             ex.printStackTrace();

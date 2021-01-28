@@ -36,7 +36,7 @@ public class UserDaoImp implements UserDAO{
             //User(long idUser, String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance, String role)
             User app = new User(idUser, nom, prenom, numTele, email, CIN, dateNaissance, roleNom);
 
-            System.out.println(idUser + nom + prenom + numTele + email + CIN + dateNaissance + roleNom);
+            //System.out.println(idUser + nom + prenom + numTele + email + CIN + dateNaissance + roleNom);
             users.add(app);
         }
 
@@ -46,16 +46,17 @@ public class UserDaoImp implements UserDAO{
         return users;
     }
 
+
+
     @Override
-    public  boolean removeUserById(Long id) throws ClassNotFoundException, SQLException {
+    public boolean removeUserById(Long idUser) throws SQLException, ClassNotFoundException {
         conn = DbConnection.getConnection();
-        String requete = "DELETE FROM User WHERE idUser=?;";
+        String requete = "DELETE User FROM User WHERE idUser=?;";
         statement = conn.prepareStatement(requete);
 
-        statement.setLong(1, id);
+        statement.setLong(1, idUser);
         int res = statement.executeUpdate();
 
-        resultat.close();
         statement.close();
         conn.close();
         System.out.println(res);
@@ -67,4 +68,5 @@ public class UserDaoImp implements UserDAO{
         }
 
     }
+
 }

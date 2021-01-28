@@ -24,7 +24,7 @@ public class SpecialiteDaoImp implements SpecialiteDAO{
         statement = conn.prepareStatement(query);
         rst = statement.executeQuery(query);
         while (rst.next()) {
-            Long idSpecialite = rst.getLong("idSpecialite");
+            int idSpecialite = rst.getInt("idSpecialite");
             String nom = rst.getString("nom");
             Specialite sp = new Specialite(idSpecialite, nom);
             specialites.add(sp);

@@ -3,14 +3,16 @@ package ma.youcode.GestionDabsence.DAO.SecretaireDAO;
 import javafx.collections.ObservableList;
 import ma.youcode.GestionDabsence.Modeles.ApprenantAbsence;
 import ma.youcode.GestionDabsence.Modeles.Secretaire;
+import ma.youcode.GestionDabsence.Modeles.User;
 
 import java.math.BigInteger;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface SecretaireDAO {
 
-    public List<Secretaire> getAll() throws ClassNotFoundException, SQLException;
+    public ArrayList<User> getAll() throws ClassNotFoundException, SQLException;
 
     public Secretaire getById(Long idSecretaire) throws ClassNotFoundException, SQLException;
 

@@ -1,12 +1,13 @@
 package ma.youcode.GestionDabsence.DAO.FormateurDAO;
 
 
-import ma.youcode.GestionDabsence.Modeles.Apprenant;
 import ma.youcode.GestionDabsence.Connectivity.DbConnection;
+import ma.youcode.GestionDabsence.Modeles.Formateur;
+import ma.youcode.GestionDabsence.Modeles.User;
+
 import java.sql.*;
 import java.text.ParseException;
 import java.util.*;
-import java.util.Date;
 
 
 public class FormateurDaoImp implements FormateurDAO {
@@ -15,8 +16,8 @@ public class FormateurDaoImp implements FormateurDAO {
     ResultSet rst = null;
     Connection conn;
     @Override
-    public List<Apprenant> getAll() throws ClassNotFoundException, SQLException {
-        List<Apprenant> apprenants = new ArrayList<Apprenant>();
+    public ArrayList<User> getAll() throws ClassNotFoundException, SQLException {
+        ArrayList<User> formateurs = new ArrayList<>();
         conn = DbConnection.getConnection();
         statement = conn.createStatement();
 
@@ -38,13 +39,13 @@ public class FormateurDaoImp implements FormateurDAO {
             //public Apprenant(Long idApprenant, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance)
             // Créer l'objet Apprenant
             //prenant apprenant = new Apprenant(idApprenant, nom, prenom,numTele,email,password,CIN, dateNaissance,classe,specialite);
-            Apprenant apprenant = new Apprenant(idApprenant, nom, prenom,numTele,email,CIN, dateNaissance);
-            apprenants.add(apprenant);
+            Formateur formateur = new Formateur(idApprenant, nom, prenom,numTele,email,CIN, dateNaissance);
+            formateurs.add(formateur);
         }
         rst.close();
         statement.close();
         conn.close();
-        return apprenants;
+        return formateurs;
     }
     public void sauveApprenant() throws ClassNotFoundException, SQLException, ParseException {
 

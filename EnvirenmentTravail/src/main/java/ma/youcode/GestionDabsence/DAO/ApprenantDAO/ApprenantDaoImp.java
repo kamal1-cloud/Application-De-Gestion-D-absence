@@ -1,21 +1,19 @@
 package ma.youcode.GestionDabsence.DAO.ApprenantDAO;
 
 import ma.youcode.GestionDabsence.Connectivity.DbConnection;
-import ma.youcode.GestionDabsence.DAO.ApprenantDAO.ApprenantDAO;
 import ma.youcode.GestionDabsence.Modeles.Apprenant;
-import ma.youcode.GestionDabsence.Modeles.Secretaire;
+import ma.youcode.GestionDabsence.Modeles.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ApprenantDaoImp implements ApprenantDAO {
     PreparedStatement statement = null;
     Connection conn;
     ResultSet resultat;
     @Override
-    public ArrayList<Apprenant> getAll() throws ClassNotFoundException, SQLException {
-        ArrayList<Apprenant> apprenants = new ArrayList<>();
+    public ArrayList<User> getAll() throws ClassNotFoundException, SQLException {
+        ArrayList<User> apprenants = new ArrayList<>();
 
         conn = DbConnection.getConnection();
 
@@ -46,7 +44,7 @@ public class ApprenantDaoImp implements ApprenantDAO {
     }
 
     @Override
-    public Apprenant getById(Long idApprenant) throws ClassNotFoundException, SQLException {
+    public User getById(Long idApprenant) throws ClassNotFoundException, SQLException {
         return null;
     }
 

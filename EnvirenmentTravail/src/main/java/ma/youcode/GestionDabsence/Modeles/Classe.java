@@ -1,7 +1,7 @@
 package ma.youcode.GestionDabsence.Modeles;
 
 public class Classe {
-    private Long idClasse;
+    private int idClasse;
     private String Nom;
     private String salle;
     private boolean isClasse;
@@ -10,7 +10,7 @@ public class Classe {
     public Classe( ) {
      }
 
-    public Classe(Long idClasse, String nom, String salle, Long idFormateur) {
+    public Classe(int idClasse, String nom, String salle, Long idFormateur) {
         this.idClasse = idClasse;
         this.Nom = nom;
         this.salle = salle;
@@ -18,18 +18,18 @@ public class Classe {
         this.idFormateur = idFormateur;
     }
 
-    public Classe(Long idClasse, String nom, String salle) {
+    public Classe(int idClasse, String nom, String salle) {
         this.idClasse = idClasse;
         this.Nom = nom;
         this.salle = salle;
     }
 
 
-    public Long getIdClasse() {
+    public int getIdClasse() {
         return idClasse;
     }
 
-    public void setIdClasse(Long idClasse) {
+    public void setIdClasse(int idClasse) {
         this.idClasse = idClasse;
     }
 

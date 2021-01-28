@@ -3,98 +3,23 @@ package ma.youcode.GestionDabsence.Modeles;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class Formateur {
-    private Long id;
-    private String nom;
-    private String prenom;
-    private String numTele;
-    private String email;
-    private String password;
-    private String CIH;
-    private Date dateNaissance ;
-    private Long classe;
+public class Formateur extends User {
+    private int classe;
 
-    public Formateur(Long id, String nom, String prenom, String numTele, String email, String password, String CIH, Date dateNaissance, Long classe) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.numTele = numTele;
-        this.email = email;
-        this.password = password;
-        this.CIH = CIH;
-        this.dateNaissance = dateNaissance;
+    public Formateur(Long id, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, int classe) {
+        super(id, nom, prenom, numTele, email, CIN, dateNaissance, "formateur");
         this.classe = classe;
     }
 
-    public Long getId() {
-        return id;
+    public Formateur(Long idApprenant, String nom, String prenom, String numTele, String email, String cin, String dateNaissance) {
+        super(idApprenant, nom, prenom, numTele, email, cin, dateNaissance, "formateur");
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public String getNumTele() {
-        return numTele;
-    }
-
-    public void setNumTele(String numTele) {
-        this.numTele = numTele;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getCIH() {
-        return CIH;
-    }
-
-    public void setCIH(String CIH) {
-        this.CIH = CIH;
-    }
-
-    public Date getDateNaissance() {
-        return dateNaissance;
-    }
-
-    public void setDateNaissance(Date dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
-
-    public Long getClasse() {
+    public int getClasse() {
         return classe;
     }
 
-    public void setClasse(Long classe) {
+    public void setClasse(int classe) {
         this.classe = classe;
     }
 }

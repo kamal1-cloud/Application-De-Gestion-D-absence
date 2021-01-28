@@ -3,25 +3,25 @@ package ma.youcode.GestionDabsence.Modeles;
 import java.sql.Date;
 
 public class Promotion {
-    private Long idPromotion;
+    private int idPromotion;
     private String Nom;
-    private Date annee;
+    private String annee;
 
     public Promotion() {
 
     }
 
-    public Promotion(Long idPromotion, String nom, Date annee) {
+    public Promotion(int idPromotion, String nom, String annee) {
         this.idPromotion = idPromotion;
-        Nom = nom;
+        this.Nom = nom;
         this.annee = annee;
     }
 
-    public Long getIdPromotion() {
+    public int getIdPromotion() {
         return idPromotion;
     }
 
-    public void setIdPromotion(Long idPromotion) {
+    public void setIdPromotion(int idPromotion) {
         this.idPromotion = idPromotion;
     }
 
@@ -33,11 +33,11 @@ public class Promotion {
         Nom = nom;
     }
 
-    public Date getAnnee() {
+    public String getAnnee() {
         return annee;
     }
 
-    public void setAnnee(Date annee) {
+    public void setAnnee(String annee) {
         this.annee = annee;
     }
 }

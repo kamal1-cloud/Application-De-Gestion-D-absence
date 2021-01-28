@@ -1,15 +1,18 @@
 package ma.youcode.GestionDabsence;
 
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.*;
 import javafx.scene.*;
+import ma.youcode.GestionDabsence.Modeles.User;
 
 import java.io.IOException;
 
 public class AlertBox {
 
+    static Stage window;
     public static void display(String title) throws IOException {
-        Stage window = new Stage();
+        window = new Stage();
 
         window.setResizable(false);
         window.setTitle(title);

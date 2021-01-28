@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import ma.youcode.GestionDabsence.Connectivity.DbConnection;
 import ma.youcode.GestionDabsence.Modeles.ApprenantAbsence;
 import ma.youcode.GestionDabsence.Modeles.Secretaire;
+import ma.youcode.GestionDabsence.Modeles.User;
 import ma.youcode.GestionDabsence.Services.SecretaireServices;
 
 import java.math.BigInteger;
@@ -17,8 +18,8 @@ public class SecretaireDaoImp implements SecretaireDAO {
     Statement statement = null;
     Connection conn;
     @Override
-    public List<Secretaire> getAll() throws ClassNotFoundException, SQLException {
-        List<Secretaire> secretaires = new ArrayList<>();
+    public ArrayList<User> getAll() throws ClassNotFoundException, SQLException {
+        ArrayList<User> secretaires = new ArrayList<>();
 
         conn = DbConnection.getConnection();
         statement = conn.createStatement();

@@ -24,7 +24,7 @@ public class ClassDaoImp implements ClasseDAO{
             rst = statement.executeQuery(query);
             while (rst.next()) {
                 //public Classe(Long idClasse, String nom, String salle, boolean isClasse, int idFormateur)
-                Long idClasse = rst.getLong("idClasse");
+                int idClasse = rst.getInt("idClasse");
                 String nom = rst.getString("nom");
                 String salle = rst.getString("salle");
                 //Long idFormateur = rst.getLong("idFormateur");
