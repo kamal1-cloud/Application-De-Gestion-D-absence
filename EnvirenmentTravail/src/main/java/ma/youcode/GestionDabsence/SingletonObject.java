@@ -2,6 +2,7 @@ package ma.youcode.GestionDabsence;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import ma.youcode.GestionDabsence.DAO.AdminDAO.AdminDaoImp;
 import ma.youcode.GestionDabsence.DAO.ApprenantDAO.ApprenantDaoImp;
 import ma.youcode.GestionDabsence.DAO.ClasseDAO.ClassDaoImp;
@@ -35,6 +36,7 @@ public class SingletonObject
     public List<User> formaterus;
 
     ObservableList<User> users;
+    FilteredList<User> usersFiltred;
 
     public RolesDaoImp rolesDaoImp;
 
@@ -74,6 +76,7 @@ public class SingletonObject
         users.addAll(apprenants);
         users.addAll(formaterus);
         users.addAll(secretaires);
+        usersFiltred = new FilteredList<>(users);
 
     }
 

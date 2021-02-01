@@ -14,4 +14,6 @@ public interface ApprenantDAO {
     public ArrayList<User> getAll() throws ClassNotFoundException, SQLException;
     public User getById(Long idApprenant) throws ClassNotFoundException, SQLException;
     public boolean removeApprenantById(Long idApprenant) throws ClassNotFoundException, SQLException;
+    public Long addApprenant(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance,
+                             int role, int idclasse, int idSpecialite, int idPromo) throws SQLException, ClassNotFoundException;
 }

@@ -17,11 +17,10 @@ public class ApprenantDaoImp implements ApprenantDAO {
 
         conn = DbConnection.getConnection();
 
-        String requete = "select u.idUser, u.nom, u.prenom, u.numTele, u.email, u.CIN, u.dateNaissance from User u, Role r where u.`role` = r.idRole and r.nom='apprenant'";
+        String requete = "select u.*, a.*  from User u, Role r, Apprenant a where u.`role` = r.idRole and r.nom='apprenant' and a.idUser = u.idUser";
         statement = conn.prepareStatement(requete);
         resultat = statement.executeQuery();
         while (resultat.next()) {
-            //BigInteger idSecretaire = BigInteger.valueOf(resultat.getInt("idSecretaire"));
             Long idUser = resultat.getLong("idUser");
             String nom = resultat.getString("nom");
             String prenom = resultat.getString("prenom");
@@ -30,10 +29,10 @@ public class ApprenantDaoImp implements ApprenantDAO {
             String CIN = resultat.getString("CIN");
             //int role = resultat.getInt("role");
             String dateNaissance = resultat.getString("dateNaissance");
-            /**     public Apprenant(Long idApprenant, String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) {
-             */
-           // System.out.println(idUser + nom + prenom + email + numTele);
-            Apprenant app = new Apprenant(idUser, nom, prenom, numTele, email, CIN, dateNaissance);
+            int idPromo = resultat.getInt("idPromo");
+            int classeId = resultat.getInt("idClasse");
+            int specialiteId  = resultat.getInt("idSpecialite");
+            Apprenant app = new Apprenant(idUser, nom, prenom, numTele, email, CIN, dateNaissance, classeId, specialiteId, idPromo);
             apprenants.add(app);
         }
 
@@ -69,5 +68,79 @@ public class ApprenantDaoImp implements ApprenantDAO {
             return true;
         }
 
+    }
+
+    /** inserting apprenant */
+    @Override
+    public Long addApprenant(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance,
+                             int role, int idclasse, int idSpecialite, int idPromo) throws SQLException, ClassNotFoundException
+    {
+        System.out.println("idclasse " + idclasse + " id specialite " + idSpecialite + " id promo " + idPromo);
+        String requete = "INSERT INTO User (nom, prenom, numTele, email, password, CIN, dateNaissance, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        conn = DbConnection.getConnection();
+        statement = conn.prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+        statement.setString(1, nom);
+        statement.setString(2, prenom);
+        statement.setString(3, numTele);
+        statement.setString(4, email);
+        statement.setString(5, password);
+        statement.setString(6, cin);
+        statement.setString(7, dateNaissance);
+        statement.setInt(8, role);
+
+        Long idUser = 0L;
+        boolean isInserted = false;
+
+        int affectedRow = statement.executeUpdate();
+        if (affectedRow == 0) {
+            throw new SQLException("inserting failed");
+        }
+        resultat = statement.getGeneratedKeys();
+        if (resultat.next()) {
+            idUser = resultat.getLong(1);
+            isInserted = insertIntoApprenant(conn, idUser, idclasse, idSpecialite, idPromo);
+        }
+        else {
+            throw new SQLException("inserting failed");
+        }
+        resultat.close();
+        statement.close();
+        conn.close();
+        if (isInserted) {
+            return idUser;
+        }else {
+            throw new SQLException("failed inserting new Apprenant");
+        }
+    }
+
+    /** insert into Apprenant table */
+    private  boolean insertIntoApprenant(Connection conn, Long idUser, int idClasse, int idSpecialite, int idPromo) throws SQLException, ClassNotFoundException{
+        String requete;
+        if (idClasse == -1) {
+            requete = "insert into Apprenant(idUser, idSpecialite, idPromo) values(?, ?, ?);";
+        }else if (idSpecialite == -1) {
+            requete = "insert into Apprenant(idUser, idClasse, idPromo) values(?, ?, ?);";
+        }
+        else {
+            requete = "insert into Apprenant(idUser, idClasse, idPromo, idSpecialite) values(?, ?, ?, ?);";
+        }
+        statement = conn.prepareStatement(requete);
+        statement.setLong(1, idUser);
+        statement.setInt(3, idPromo);
+        if (idClasse != -1 && idSpecialite != -1) {
+            statement.setInt(2, idClasse);
+            statement.setInt(4, idSpecialite);
+        }else if(idSpecialite == -1) {
+            statement.setInt(2, idSpecialite);
+        }
+        else {
+            statement.setInt(2, idClasse);
+        }
+
+        int affectedRows = statement.executeUpdate();
+        if (affectedRows == 0) {
+            return false;
+        }
+        return true;
     }
 }

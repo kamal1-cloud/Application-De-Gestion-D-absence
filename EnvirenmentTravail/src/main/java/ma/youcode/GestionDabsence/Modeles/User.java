@@ -10,6 +10,8 @@ public class User {
     private String CIN;
     private String dateNaissance;
     private String role;
+    private int roleId;
+    private boolean isAdmin;
 
     public User( ) {
 
@@ -25,6 +27,20 @@ public class User {
         this.CIN = CIN;
         this.dateNaissance = dateNaissance;
         this.role = role;
+    }
+
+
+    public User(long idUser, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, String password, int roleId, boolean isAdmin) {
+        this.idUser = idUser;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.numTele = numTele;
+        this.email = email;
+        this.password = password;
+        this.CIN = CIN;
+        this.dateNaissance = dateNaissance;
+        this.roleId = roleId;
+        this.isAdmin = isAdmin;
     }
 
     public long getIdUser() {
@@ -97,5 +113,21 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

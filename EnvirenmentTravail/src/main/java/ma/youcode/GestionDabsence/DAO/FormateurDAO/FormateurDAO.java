@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface FormateurDAO {
     public ArrayList<User> getAll() throws ClassNotFoundException, SQLException;
-    public void  sauveApprenant() throws ClassNotFoundException, SQLException, ParseException;
-    public void updateApprenant() throws ClassNotFoundException, SQLException;
-    public void deleteApprenant() throws ClassNotFoundException, SQLException;
+    public Long addFormateurwithClasse(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int role, int idclasse) throws SQLException, ClassNotFoundException;
+    public Long addFormateurwithSpecialite(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int role, int idSpecialite) throws SQLException, ClassNotFoundException;
+
+
 }

@@ -17,6 +17,8 @@ import java.util.List;
 public class SecretaireDaoImp implements SecretaireDAO {
     Statement statement = null;
     Connection conn;
+    PreparedStatement stmt;
+    ResultSet rst;
     @Override
     public ArrayList<User> getAll() throws ClassNotFoundException, SQLException {
         ArrayList<User> secretaires = new ArrayList<>();
@@ -47,6 +49,45 @@ public class SecretaireDaoImp implements SecretaireDAO {
     }
 
 
+    /**************** add secretaire ****************/
+
+    @Override
+    public Long addSecreture(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int role) throws SQLException, ClassNotFoundException {
+
+        String requete = "INSERT INTO User (nom, prenom, numTele, email, password, CIN, dateNaissance, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        conn = DbConnection.getConnection();
+        stmt = conn.prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+        stmt.setString(1, nom);
+        stmt.setString(2, prenom);
+        stmt.setString(3, numTele);
+        stmt.setString(4, email);
+        stmt.setString(5, password);
+        stmt.setString(6, cin);
+        stmt.setString(7, dateNaissance);
+        stmt.setInt(8, role);
+        int affectedRow = stmt.executeUpdate();
+        Long idUser = -1L;
+        if (affectedRow == 0) {
+            throw new SQLException("inserting failed");
+        }
+        System.out.println("secreture inserted");
+        rst = stmt.getGeneratedKeys();
+        while (rst.next()) {
+            System.out.println(rst.getLong(1));
+            idUser = rst.getLong(1);
+        }
+        rst.close();
+        stmt.close();
+        conn.close();
+        if (idUser == -1) {
+            throw new SQLException("inserting failed");
+        }
+        return idUser;
+    }
+
+    /***************** end add secretaire ***********/
+
+
     @Override
     public Secretaire getById(Long idSecretaire) throws ClassNotFoundException, SQLException {
         Secretaire secretaire = null;
@@ -73,35 +114,6 @@ public class SecretaireDaoImp implements SecretaireDAO {
 
         return secretaire;
     }
-
-    @Override
-    public Secretaire sauveSecretaire(String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) throws ClassNotFoundException, SQLException {
-        Secretaire reponse = null;
-        long idSecretaire = -1;
-
-        String requete = "Insert INTO Secretaire ( nom, prenom, numTele, email, password, CIN, dateNaissance) VALUES (?,?,?,?,?,?,?)";
-        PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, nom);
-        statement.setString(2, prenom);
-        statement.setString(3, numTele);
-        statement.setString(4, email);
-        statement.setString(5, password);
-        statement.setString(6, CIN);
-        statement.setString(7,dateNaissance);
-        statement.executeUpdate();
-
-        ResultSet rs = statement.getGeneratedKeys();
-
-        if (rs.next()) {
-            idSecretaire = rs.getLong(1);
-        }
-
-        //reponse = new Secretaire((int) idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
-
-        return reponse;
-    }
-
-
 
 
     @Override
@@ -186,6 +198,42 @@ public class SecretaireDaoImp implements SecretaireDAO {
         }
         return ApprenantsAbsentes;
     }
+
+
+
+
+
+
+
+
+    @Override
+    public Secretaire sauveSecretaire(String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) throws ClassNotFoundException, SQLException {
+        Secretaire reponse = null;
+        long idSecretaire = -1;
+
+        String requete = "Insert INTO Secretaire ( nom, prenom, numTele, email, password, CIN, dateNaissance) VALUES (?,?,?,?,?,?,?)";
+        PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+        statement.setString(1, nom);
+        statement.setString(2, prenom);
+        statement.setString(3, numTele);
+        statement.setString(4, email);
+        statement.setString(5, password);
+        statement.setString(6, CIN);
+        statement.setString(7,dateNaissance);
+        statement.executeUpdate();
+
+        ResultSet rs = statement.getGeneratedKeys();
+
+        if (rs.next()) {
+            idSecretaire = rs.getLong(1);
+        }
+
+        //reponse = new Secretaire((int) idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
+
+        return reponse;
+    }
+
+
 
 
 }

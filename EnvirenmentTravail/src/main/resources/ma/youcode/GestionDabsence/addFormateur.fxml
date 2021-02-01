@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="888.0" prefWidth="576.0" style="-fx-background-color: #202020;" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.youcode.GestionDabsence.AddFormateur">
+    <children>
+        <JFXButton layoutX="213.0" layoutY="830.0" onAction="#ajouterFormateur" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: #295881;" text="ajouter" textFill="WHITE" />
+        <HBox layoutX="287.0" layoutY="516.0" prefHeight="38.0" prefWidth="138.0" />
+        <HBox layoutX="79.0" layoutY="510.0" prefHeight="38.0" prefWidth="138.0" />
+        <HBox layoutX="313.0" layoutY="451.0" prefHeight="38.0" prefWidth="138.0" />
+      <VBox fx:id="classeSpecialite" layoutX="268.0" layoutY="705.0" prefHeight="50.0" prefWidth="200.0" />
+      <RadioButton layoutX="213.0" layoutY="668.0" mnemonicParsing="false" onAction="#formateurSecondYear" text="second year" textFill="WHITE">
+         <toggleGroup>
+            <ToggleGroup fx:id="isfirstYear" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="399.0" layoutY="668.0" mnemonicParsing="false" onAction="#formateurFirstYear" text="first year" textFill="WHITE" toggleGroup="$isfirstYear" />
+      <VBox id="nomBox" fx:id="nomBox" layoutX="113.0" layoutY="38.0" prefHeight="64.0" prefWidth="346.0" styleClass="ba" stylesheets="@main.css">
+         <children>
+              <TextField fx:id="nom" alignment="CENTER" prefHeight="38.0" prefWidth="346.0" promptText="nom" />
+         </children>
+      </VBox>
+      <VBox fx:id="prenomBox" layoutX="115.0" layoutY="123.0" prefHeight="64.0" prefWidth="346.0" styleClass="ba">
+         <children>
+              <TextField fx:id="prenom" alignment="CENTER" prefHeight="38.0" prefWidth="346.0" promptText="prenom" />
+         </children>
+      </VBox>
+      <VBox fx:id="emailBox" layoutX="114.0" layoutY="210.0" prefHeight="64.0" prefWidth="346.0" styleClass="ba">
+         <children>
+              <TextField fx:id="email" alignment="CENTER" prefHeight="38.0" prefWidth="346.0" promptText="email" />
+         </children>
+      </VBox>
+      <VBox fx:id="telBox" layoutX="117.0" layoutY="298.0" prefHeight="64.0" prefWidth="346.0" styleClass="ba">
+         <children>
+              <TextField fx:id="numTele" alignment="CENTER" prefHeight="38.0" prefWidth="346.0" promptText="number télé" />
+         </children>
+      </VBox>
+      <VBox fx:id="cinBox" layoutX="116.0" layoutY="389.0" prefHeight="64.0" prefWidth="346.0" styleClass="ba">
+         <children>
+              <TextField fx:id="cin" alignment="CENTER" prefHeight="38.0" prefWidth="346.0" promptText="CIN" />
+         </children>
+      </VBox>
+      <VBox fx:id="dateNaiBox" layoutX="117.0" layoutY="478.0" prefHeight="64.0" prefWidth="346.0" styleClass="ba">
+         <children>
+              <DatePicker fx:id="dateNaissance" prefHeight="40.0" prefWidth="346.0" promptText="date Naissance" />
+         </children>
+      </VBox>
+      <VBox fx:id="passwordBox" layoutX="118.0" layoutY="570.0" prefHeight="64.0" prefWidth="346.0" styleClass="ba">
+         <children>
+              <PasswordField fx:id="password" alignment="CENTER" prefHeight="38.0" prefWidth="346.0" promptText="password" stylesheets="@main.css" />
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>

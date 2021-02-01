@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserDaoImp implements UserDAO{
+public class UserDaoImp implements UserDAO {
     Connection conn;
     PreparedStatement statement;
     ResultSet resultat;
@@ -67,6 +67,63 @@ public class UserDaoImp implements UserDAO{
             return true;
         }
 
+    }
+
+    @Override
+    public boolean updateUserById(Long id, String nom, String prenom, String email, String CIN, String password) throws ClassNotFoundException, SQLException {
+        conn = DbConnection.getConnection();
+        String requete = "UPDATE User SET nom=?, prenom=?, email=?, CIN=?, password=? WHERE idUser=?";
+        statement = conn.prepareStatement(requete);
+
+        statement.setString(1, nom);
+        statement.setString(2, prenom);
+        statement.setString(3, email);
+        statement.setString(4, CIN);
+        statement.setString(5, password);
+        statement.setLong(6, id);
+        int res = statement.executeUpdate();
+
+        statement.close();
+        conn.close();
+        if (res > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    @Override
+    public User getUserByEmailOrCin(String target, String password) throws ClassNotFoundException, SQLException {
+        User user = null;
+        conn = DbConnection.getConnection();
+        String requete = "select * from User where email = ? or CIN=? and password=?";
+        statement = conn.prepareStatement(requete);
+        statement.setString(1, target);
+        statement.setString(2, target);
+        statement.setString(3, password);
+        resultat = statement.executeQuery();
+        while (resultat.next()) {
+            Long idUser = resultat.getLong("idUser");
+            String nom = resultat.getString("nom");
+            String prenom = resultat.getString("prenom");
+            String numTele = resultat.getString("numTele");
+            String email = resultat.getString("email");
+            String CIN = resultat.getString("CIN");
+            int roleId = resultat.getInt("role");
+            String dateNaissance = resultat.getString("dateNaissance");
+            String passwordValue = resultat.getString("password");
+            boolean isAdmin = resultat.getBoolean("isAdmin");
+            System.out.println("is Admin " + isAdmin);
+    //public User(long idUser, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, String password, String role) {
+            user = new User(idUser, nom, prenom, numTele, email, CIN, dateNaissance, passwordValue, roleId, isAdmin);
+        }
+
+        resultat.close();
+        statement.close();
+        conn.close();
+        return user;
     }
 
 }

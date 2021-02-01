@@ -11,30 +11,30 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1700.0" style="-fx-background-color: #C1C1C1;" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.youcode.GestionDabsence.ListeUtilisateur">
    <children>
-       <TableView fx:id="usersListe" editable="true" layoutX="124.0" layoutY="120.0" minHeight="700.0" minWidth="-Infinity" prefWidth="1700.0">
+       <TableView fx:id="usersListe" editable="true" layoutX="52.0" layoutY="111.0" minHeight="698.0" minWidth="-Infinity" prefHeight="709.0" prefWidth="1819.0">
          <columns>
             <TableColumn fx:id="nom" prefWidth="230.0" text="nom" />
             <TableColumn fx:id="prenom" prefWidth="223.0" text="prenom" />
-            <TableColumn fx:id="email" prefWidth="354.0" text="email" />
-            <TableColumn fx:id="cin" prefWidth="205.0" text="cin" />
-            <TableColumn fx:id="numTele" prefWidth="221.0" text="numero tel" />
-            <TableColumn fx:id="role" minWidth="0.0" prefWidth="137.0" text="type" />
-            <TableColumn fx:id="dateNaissance" prefWidth="200.0" text="date Naissance" />
-            <TableColumn prefWidth="91.0" text="Action" />
+            <TableColumn fx:id="email" prefWidth="276.0" text="email" />
+            <TableColumn fx:id="cin" prefWidth="162.0" text="cin" />
+            <TableColumn fx:id="numTele" prefWidth="237.0" text="numero tel" />
+            <TableColumn fx:id="role" minWidth="0.0" prefWidth="94.0" text="type" />
+            <TableColumn fx:id="dateNaissance" prefWidth="249.0" text="date Naissance" />
+            <TableColumn fx:id="delete" prefWidth="150.0" />
+            <TableColumn fx:id="update" prefWidth="150.0" />
          </columns>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
        </TableView>
       <ComboBox fx:id="filterRole" layoutX="143.0" layoutY="40.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#getSelectedRole" prefHeight="38.0" prefWidth="256.0" promptText="all utilisateurs" style="-fx-background-color: #fff;" />
-      <HBox layoutX="769.0" layoutY="35.0" prefHeight="46.0" prefWidth="1041.0">
+      <HBox layoutX="812.0" layoutY="35.0" prefHeight="46.0" prefWidth="1041.0">
          <children>
-            <TextField fx:id="searchInput" prefHeight="46.0" prefWidth="784.0" promptText="find user by nom or CIN" />
-            <JFXButton fx:id="searchBtn" onAction="#getchoosedUser" prefHeight="46.0" prefWidth="257.0" style="-fx-background-color: #058dfe;" text="search" textFill="WHITE" />
+            <TextField fx:id="searchInput" prefHeight="46.0" prefWidth="1046.0" promptText="find user by nom or CIN" />
          </children>
       </HBox>
-      <JFXButton fx:id="supprimerUtil" layoutX="1645.0" layoutY="937.0" onAction="#supprimerUser" prefHeight="46.0" prefWidth="154.0" style="-fx-background-color: #fe0000;" text="delete Apprenant" textFill="WHITE" />
-      <JFXButton fx:id="ajoutUtil" layoutX="1235.0" layoutY="937.0" onAction="#ajouterUser" prefHeight="46.0" prefWidth="154.0" style="-fx-background-color: #058dfe;" text="ajouter Apprenant" textFill="WHITE" />
-      <JFXButton fx:id="modifierUtil" layoutX="1444.0" layoutY="937.0" onAction="#modifierUser" prefHeight="46.0" prefWidth="164.0" style="-fx-background-color: #feda22;" text="modifier Apprenant" textFill="WHITE" />
+      <JFXButton layoutX="789.0" layoutY="935.0" onAction="#addApprenant" prefHeight="46.0" prefWidth="141.0" style="-fx-background-color: #fff;" text="add apprenant" />
+      <JFXButton layoutX="971.0" layoutY="934.0" onAction="#addFormateur" prefHeight="46.0" prefWidth="141.0" style="-fx-background-color: #fff;" text="add formateur" />
+      <JFXButton layoutX="1157.0" layoutY="934.0" onAction="#addSecretaire" prefHeight="46.0" prefWidth="141.0" style="-fx-background-color: #fff;" text="add secretaire" />
    </children>
 </AnchorPane>

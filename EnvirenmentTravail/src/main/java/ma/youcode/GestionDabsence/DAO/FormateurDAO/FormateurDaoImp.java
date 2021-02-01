@@ -21,7 +21,8 @@ public class FormateurDaoImp implements FormateurDAO {
         conn = DbConnection.getConnection();
         statement = conn.createStatement();
 
-        String query = "select u.idUser, u.nom, u.prenom, u.numTele, u.email, u.CIN, u.dateNaissance from User u, Role r where u.`role` = r.idRole and r.nom='formateur';";
+        //String query = "select u.idUser, u.nom, u.prenom, u.numTele, u.email, u.CIN, u.dateNaissance from User u, Role r where u.`role` = r.idRole and r.nom='formateur';";
+        String query = "select u.*, f.*  from User u, Role r, Formateur f where u.`role` = r.idRole and r.nom='Formateur' and f.idUser = u.idUser";
 
         rst = statement.executeQuery(query);
         while (rst.next()) {
@@ -30,16 +31,11 @@ public class FormateurDaoImp implements FormateurDAO {
             String prenom = rst.getString("prenom");
             String numTele = rst.getString("numTele");
             String email = rst.getString("email");
-            //ring password = rst.getString("password");
             String CIN = rst.getString("CIN");
             String dateNaissance = rst.getString("dateNaissance");
-            //ng classe = rst.getLong("classe");
-            //ng  specialite = rst.getLong("specialite");
-            //stem.out.println(idApprenant+ "\t\t\t\t" +nom + "\t" + prenom + "\t\t" + numTele + "\t\t" + email + "\t\t" + password + "\t\t" + CIN + "\t\t" + dateNaissance + "\t\t" + classe + "\t\t" + specialite);
-            //public Apprenant(Long idApprenant, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance)
-            // Créer l'objet Apprenant
-            //prenant apprenant = new Apprenant(idApprenant, nom, prenom,numTele,email,password,CIN, dateNaissance,classe,specialite);
-            Formateur formateur = new Formateur(idApprenant, nom, prenom,numTele,email,CIN, dateNaissance);
+            int classe = rst.getInt("idClasse");
+            int  specialite = rst.getInt("idSpecialite");
+            Formateur formateur = new Formateur(idApprenant, nom, prenom,numTele,email,CIN, dateNaissance, classe, specialite);
             formateurs.add(formateur);
         }
         rst.close();
@@ -47,51 +43,98 @@ public class FormateurDaoImp implements FormateurDAO {
         conn.close();
         return formateurs;
     }
-    public void sauveApprenant() throws ClassNotFoundException, SQLException, ParseException {
 
-        String query = "Insert into Apprenant (nom, prenom, numTele, email, password, CIN, dateNaissance, isCurrentActif) Values (?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement statement = DbConnection.getConnection().prepareStatement(query);
 
-        statement.setString(1, "BOUCHERA");
-        statement.setString(2, "zahera");
-        statement.setString(3, "000000000");
-        statement.setString(4, "zzayani@gmail.com");
-        statement.setString(5, "jjjjjjjj");
-        statement.setString(6, "Hk86876");
-        statement.setDate(7, java.sql.Date.valueOf("2013-09-04"));
-        statement.setBoolean(8, true);
-        statement.executeUpdate();
-       // statement.setDate(8, sqlDate);
+    /** add formateur with classe */
+    @Override
+    public Long addFormateurwithClasse(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int role, int idclasse) throws SQLException, ClassNotFoundException {
+        String requete = "INSERT INTO User (nom, prenom, numTele, email, password, CIN, dateNaissance, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        conn = DbConnection.getConnection();
+        stmt = conn.prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+        stmt.setString(1, nom);
+        stmt.setString(2, prenom);
+        stmt.setString(3, numTele);
+        stmt.setString(4, email);
+        stmt.setString(5, password);
+        stmt.setString(6, cin);
+        stmt.setString(7, dateNaissance);
+        stmt.setInt(8, role);
 
-        // Step 3: Execute the query or update query
+        Long idUser = 0L;
+        boolean isInserted = false;
 
-        System.out.println("Operation is done!");
-
-    }
-
-    public void updateApprenant() throws ClassNotFoundException, SQLException {
-        String query = "Update Apprenant set nom = ?, prenom = ?, numTele = ?, email = ?, password = ?, CIN = ?, dateNaissance = ?, isCurrentActif = ? Where idApprenant = ?";
-        PreparedStatement statement = DbConnection.getConnection().prepareStatement(query);
-
-        statement.setString(1, "khadija");
-        statement.setString(2, "dabooz");
-        statement.setString(3, "8298290989");
-        statement.setString(4, "kamal@gmail.com");
-        statement.setString(5, "prenom87668");
-        statement.setString(6, "Hg827829");
-        statement.setDate(7, java.sql.Date.valueOf("1997-09-04"));
-        statement.setBoolean(8, true);
-        statement.setLong(9,29);
-        statement.executeUpdate();
-        System.out.println("Row updated");
+        int affectedRow = stmt.executeUpdate();
+        if (affectedRow == 0) {
+            throw new SQLException("inserting failed");
+        }
+        System.out.println("affected row " + affectedRow);
+        rst = stmt.getGeneratedKeys();
+        while (rst.next()) {
+            System.out.println("has next");
+            idUser = rst.getLong(1);
+            isInserted = insertIntoFormateur(conn, idUser, idclasse, -1);
+        }
+        if (isInserted) return idUser;
+        else throw new SQLException("formateur does not inseted");
 
     }
-    public void deleteApprenant() throws ClassNotFoundException, SQLException {
-        String query = "Delete From Apprenant Where idApprenant = ?";
-        PreparedStatement statement = DbConnection.getConnection().prepareStatement(query);
-        statement.setLong(1, 29);
-        statement.executeUpdate();
-        System.out.println("Apprenant supprimer");
+
+    /************************/
+    /**  ajouter into formateur table */
+    private boolean insertIntoFormateur(Connection conn, Long idUser, int idClasse, int idSpecialite) throws SQLException, ClassNotFoundException {
+        String requete;
+        if (idClasse == -1) {
+            requete = "insert into Formateur(idUser, idSpecialite) values(?, ?);";
+        }else {
+            requete = "insert into Formateur(idUser, idClasse) values(?, ?);";
+        }
+        stmt = conn.prepareStatement(requete);
+        stmt.setLong(1, idUser);
+        if (idClasse != -1) {
+            stmt.setInt(2, idClasse);
+        }else {
+            stmt.setInt(2, idSpecialite);
+        }
+
+        int affectedRows = stmt.executeUpdate();
+        if (affectedRows == 0) {
+            return false;
+        }
+        return true;
+    }
+    /***********************/
+
+    /*** add formateur with specialite *******************/
+    @Override
+    public Long addFormateurwithSpecialite(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int role, int idSpecialite) throws SQLException, ClassNotFoundException {
+        String requete = "INSERT INTO User (nom, prenom, numTele, email, password, CIN, dateNaissance, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        conn = DbConnection.getConnection();
+        stmt = conn.prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+        stmt.setString(1, nom);
+        stmt.setString(2, prenom);
+        stmt.setString(3, numTele);
+        stmt.setString(4, email);
+        stmt.setString(5, password);
+        stmt.setString(6, cin);
+        stmt.setString(7, dateNaissance);
+        stmt.setInt(8, role);
+
+        Long idUser = 0L;
+        boolean isInserted = false;
+
+        int affectedRow = stmt.executeUpdate();
+        if (affectedRow == 0) {
+            throw new SQLException("inserting failed");
+        }
+        System.out.println("affected row " + affectedRow);
+        rst = stmt.getGeneratedKeys();
+        while (rst.next()) {
+            System.out.println("has next");
+            idUser = rst.getLong(1);
+            isInserted = insertIntoFormateur(conn, idUser, -1, idSpecialite);
+        }
+        if (isInserted) return idUser;
+        else throw new SQLException("formateur does not inseted");
 
     }
 }

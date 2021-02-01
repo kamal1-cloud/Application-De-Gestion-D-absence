@@ -42,5 +42,10 @@ table-view .column-header,
 .table-view .table-column{
     -fx-text-alignment: center;
     -fx-alignment: CENTER
+}
 
+.ba Label {
+    -fx-text-fill: red;
+    -fx-font-size: 10;
+    -fx-padding: 5 0 5 0;
 }

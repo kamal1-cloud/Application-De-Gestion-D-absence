@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="579.0" style="-fx-background-color: #202020;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.youcode.GestionDabsence.UpdateUser">
+    <children>
+        <TextField fx:id="nom" alignment="CENTER" layoutX="113.0" layoutY="43.0" prefHeight="38.0" prefWidth="346.0" promptText="nom" />
+        <TextField fx:id="prenom" alignment="CENTER" layoutX="113.0" layoutY="103.0" prefHeight="38.0" prefWidth="346.0" promptText="prenom" />
+        <TextField fx:id="email" alignment="CENTER" layoutX="112.0" layoutY="160.0" prefHeight="38.0" prefWidth="346.0" promptText="email" />
+        <TextField fx:id="numTele" alignment="CENTER" layoutX="111.0" layoutY="216.0" prefHeight="38.0" prefWidth="346.0" promptText="number télé" />
+        <TextField fx:id="cin" alignment="CENTER" layoutX="109.0" layoutY="276.0" prefHeight="38.0" prefWidth="346.0" promptText="CIN" />
+        <PasswordField fx:id="password" alignment="CENTER" layoutX="107.0" layoutY="336.0" prefHeight="38.0" prefWidth="346.0" promptText="password" stylesheets="@main.css" />
+        <JFXButton layoutX="188.0" layoutY="738.0" onAction="#updateUser" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: #295881;" text="update" textFill="WHITE" />
+        <HBox layoutX="287.0" layoutY="516.0" prefHeight="38.0" prefWidth="138.0" />
+        <HBox layoutX="79.0" layoutY="510.0" prefHeight="38.0" prefWidth="138.0" />
+        <HBox layoutX="79.0" layoutY="451.0" prefHeight="38.0" prefWidth="138.0" />
+        <HBox layoutX="313.0" layoutY="451.0" prefHeight="38.0" prefWidth="138.0" />
+        <ComboBox fx:id="specialiteCombo" layoutX="314.0" layoutY="397.0" prefHeight="38.0" prefWidth="138.0" promptText="specialité" style="-fx-background-color: #fff;" />
+        <ComboBox fx:id="promotionCombo" layoutX="313.0" layoutY="631.0" prefHeight="38.0" prefWidth="138.0" promptText="promotion" style="-fx-background-color: #fff;" visible="false" />
+        <ComboBox fx:id="classeCombo" layoutX="315.0" layoutY="455.0" prefHeight="38.0" prefWidth="138.0" promptText="classe" style="-fx-background-color: #fff;" />
+      <ComboBox fx:id="promotionCombo1" layoutX="316.0" layoutY="514.0" prefHeight="38.0" prefWidth="138.0" promptText="promotion" style="-fx-background-color: #fff;" />
+    </children>
+</AnchorPane>
