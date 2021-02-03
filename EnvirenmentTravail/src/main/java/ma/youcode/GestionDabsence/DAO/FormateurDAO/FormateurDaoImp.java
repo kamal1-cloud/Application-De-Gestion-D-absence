@@ -2,6 +2,7 @@ package ma.youcode.GestionDabsence.DAO.FormateurDAO;
 
 
 import ma.youcode.GestionDabsence.Connectivity.DbConnection;
+import ma.youcode.GestionDabsence.GlobalVar;
 import ma.youcode.GestionDabsence.Modeles.Formateur;
 import ma.youcode.GestionDabsence.Modeles.User;
 
@@ -22,7 +23,7 @@ public class FormateurDaoImp implements FormateurDAO {
         statement = conn.createStatement();
 
         //String query = "select u.idUser, u.nom, u.prenom, u.numTele, u.email, u.CIN, u.dateNaissance from User u, Role r where u.`role` = r.idRole and r.nom='formateur';";
-        String query = "select u.*, f.*  from User u, Role r, Formateur f where u.`role` = r.idRole and r.nom='Formateur' and f.idUser = u.idUser";
+        String query = "select * from User u, Formateur f where u.idUser=f.idUser and u.role='formateur'";
 
         rst = statement.executeQuery(query);
         while (rst.next()) {
@@ -35,7 +36,8 @@ public class FormateurDaoImp implements FormateurDAO {
             String dateNaissance = rst.getString("dateNaissance");
             int classe = rst.getInt("idClasse");
             int  specialite = rst.getInt("idSpecialite");
-            Formateur formateur = new Formateur(idApprenant, nom, prenom,numTele,email,CIN, dateNaissance, classe, specialite);
+            boolean isAdmin = rst.getBoolean("isAdmin");
+            Formateur formateur = new Formateur(idApprenant, nom, prenom,numTele,email,CIN, dateNaissance, classe, specialite, isAdmin);
             formateurs.add(formateur);
         }
         rst.close();
@@ -47,7 +49,7 @@ public class FormateurDaoImp implements FormateurDAO {
 
     /** add formateur with classe */
     @Override
-    public Long addFormateurwithClasse(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int role, int idclasse) throws SQLException, ClassNotFoundException {
+    public Long addFormateurwithClasse(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int idclasse) throws SQLException, ClassNotFoundException {
         String requete = "INSERT INTO User (nom, prenom, numTele, email, password, CIN, dateNaissance, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
         conn = DbConnection.getConnection();
         stmt = conn.prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
@@ -58,7 +60,7 @@ public class FormateurDaoImp implements FormateurDAO {
         stmt.setString(5, password);
         stmt.setString(6, cin);
         stmt.setString(7, dateNaissance);
-        stmt.setInt(8, role);
+        stmt.setString(8, GlobalVar.formateur);
 
         Long idUser = 0L;
         boolean isInserted = false;
@@ -106,7 +108,7 @@ public class FormateurDaoImp implements FormateurDAO {
 
     /*** add formateur with specialite *******************/
     @Override
-    public Long addFormateurwithSpecialite(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int role, int idSpecialite) throws SQLException, ClassNotFoundException {
+    public Long addFormateurwithSpecialite(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int idSpecialite) throws SQLException, ClassNotFoundException {
         String requete = "INSERT INTO User (nom, prenom, numTele, email, password, CIN, dateNaissance, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
         conn = DbConnection.getConnection();
         stmt = conn.prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
@@ -117,7 +119,7 @@ public class FormateurDaoImp implements FormateurDAO {
         stmt.setString(5, password);
         stmt.setString(6, cin);
         stmt.setString(7, dateNaissance);
-        stmt.setInt(8, role);
+        stmt.setString(8, GlobalVar.formateur);
 
         Long idUser = 0L;
         boolean isInserted = false;

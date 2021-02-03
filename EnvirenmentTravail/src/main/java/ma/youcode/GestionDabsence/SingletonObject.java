@@ -9,7 +9,6 @@ import ma.youcode.GestionDabsence.DAO.ClasseDAO.ClassDaoImp;
 import ma.youcode.GestionDabsence.DAO.FormateurDAO.FormateurDAO;
 import ma.youcode.GestionDabsence.DAO.FormateurDAO.FormateurDaoImp;
 import ma.youcode.GestionDabsence.DAO.PromtionDAO.PromotionDaoImp;
-import ma.youcode.GestionDabsence.DAO.RolesDAO.RolesDaoImp;
 import ma.youcode.GestionDabsence.DAO.SecretaireDAO.SecretaireDaoImp;
 import ma.youcode.GestionDabsence.DAO.SpecialiteDAO.SpecialiteDaoImp;
 import ma.youcode.GestionDabsence.Modeles.*;
@@ -38,8 +37,6 @@ public class SingletonObject
     ObservableList<User> users;
     FilteredList<User> usersFiltred;
 
-    public RolesDaoImp rolesDaoImp;
-
     private ClassDaoImp classDaoImp;
 
     private SpecialiteDaoImp specialiteDaoImp;
@@ -58,7 +55,6 @@ public class SingletonObject
     {
         // no code req'd
         users = FXCollections.observableArrayList();
-        rolesDaoImp = new RolesDaoImp();
         classDaoImp = new ClassDaoImp();
         specialiteDaoImp = new SpecialiteDaoImp();
         adminDaoImp = new AdminDaoImp();
@@ -66,7 +62,6 @@ public class SingletonObject
         apprenantDaoImp = new ApprenantDaoImp();
         secretaireDaoImp = new SecretaireDaoImp();
         formateurDAO = new FormateurDaoImp();
-        roles = rolesDaoImp.getAll();
         classes = classDaoImp.getAll();
         specialites = specialiteDaoImp.getAll();
         promotions = promotionDaoImp.getAllPromotion();

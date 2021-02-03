@@ -3,6 +3,7 @@ package ma.youcode.GestionDabsence.DAO.SecretaireDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ma.youcode.GestionDabsence.Connectivity.DbConnection;
+import ma.youcode.GestionDabsence.GlobalVar;
 import ma.youcode.GestionDabsence.Modeles.ApprenantAbsence;
 import ma.youcode.GestionDabsence.Modeles.Secretaire;
 import ma.youcode.GestionDabsence.Modeles.User;
@@ -26,7 +27,7 @@ public class SecretaireDaoImp implements SecretaireDAO {
         conn = DbConnection.getConnection();
         statement = conn.createStatement();
         ResultSet resultat;
-        String requete = "select u.idUser, u.nom, u.prenom, u.numTele, u.email, u.CIN, u.dateNaissance from User u, Role r where u.`role` = r.idRole and r.nom='secreture'";
+        String requete = "SELECT * FROM User u WHERE u.idUser='secreture'";
         resultat = statement.executeQuery(requete);
         while (resultat.next()) {
             //BigInteger idSecretaire = BigInteger.valueOf(resultat.getInt("idSecretaire"));
@@ -38,7 +39,8 @@ public class SecretaireDaoImp implements SecretaireDAO {
             String email = resultat.getString("email");
             String CIN = resultat.getString("CIN");
             String dateNaissance = resultat.getString("dateNaissance");
-            Secretaire p = new Secretaire(idSecretaire, nom, prenom, numTele, email, CIN, dateNaissance);
+            boolean isAdmin = resultat.getBoolean("isAdmin");
+            Secretaire p = new Secretaire(idSecretaire, nom, prenom, numTele, email, CIN, dateNaissance, isAdmin);
             secretaires.add(p);
         }
 
@@ -52,7 +54,7 @@ public class SecretaireDaoImp implements SecretaireDAO {
     /**************** add secretaire ****************/
 
     @Override
-    public Long addSecreture(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int role) throws SQLException, ClassNotFoundException {
+    public Long addSecreture(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance) throws SQLException, ClassNotFoundException {
 
         String requete = "INSERT INTO User (nom, prenom, numTele, email, password, CIN, dateNaissance, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
         conn = DbConnection.getConnection();
@@ -64,7 +66,7 @@ public class SecretaireDaoImp implements SecretaireDAO {
         stmt.setString(5, password);
         stmt.setString(6, cin);
         stmt.setString(7, dateNaissance);
-        stmt.setInt(8, role);
+        stmt.setString(8, GlobalVar.secreture);
         int affectedRow = stmt.executeUpdate();
         Long idUser = -1L;
         if (affectedRow == 0) {

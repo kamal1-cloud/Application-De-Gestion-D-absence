@@ -23,5 +23,5 @@ public interface SecretaireDAO {
     public void deleteById(int id) throws ClassNotFoundException, SQLException;
 
     public ObservableList<ApprenantAbsence> AfficheApprantAbsence();
-    public Long addSecreture(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int role) throws SQLException, ClassNotFoundException;
+    public Long addSecreture(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance) throws SQLException, ClassNotFoundException;
 }

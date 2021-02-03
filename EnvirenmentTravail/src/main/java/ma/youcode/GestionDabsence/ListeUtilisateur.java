@@ -15,7 +15,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.util.Callback;
 import ma.youcode.GestionDabsence.DAO.AdminDAO.AdminDaoImp;
-import ma.youcode.GestionDabsence.DAO.RolesDAO.RolesDaoImp;
 import ma.youcode.GestionDabsence.DAO.UserDAO.UserDaoImp;
 import ma.youcode.GestionDabsence.Modeles.Classe;
 import ma.youcode.GestionDabsence.Modeles.Role;
@@ -36,7 +35,6 @@ public class ListeUtilisateur implements Initializable {
             private Pane paneRoot;
     */
     UserDaoImp userDaoImp;
-    RolesDaoImp rolesDaoImp;
     AdminDaoImp adminDaoImp;
     @FXML
     private TableView<User> usersListe;
@@ -90,7 +88,6 @@ public class ListeUtilisateur implements Initializable {
     public ListeUtilisateur() {
         //apprenantDaoImp = new ApprenantDaoImp();
         userDaoImp = new UserDaoImp();
-        rolesDaoImp = new RolesDaoImp();
         adminDaoImp = new AdminDaoImp();
     }
     @Override
@@ -99,14 +96,11 @@ public class ListeUtilisateur implements Initializable {
             /** add delete button in each row in table view ****/
             /************* end ***********************/
             singletonObject = SingletonObject.getSingletonObject();
-      //      apprenantTableView = new TableView<>();
-            roleArrayList = singletonObject.roles;
+             //apprenantTableView = new TableView<>();
+            //roleArrayList = singletonObject.roles;
             //specialitesArrayList =
             /** observable list of the roles */
-            ObservableList<String> roleObservableList = FXCollections.observableArrayList();
-            for (Role r : roleArrayList) {
-                roleObservableList.add(r.getNom());
-            }
+            ObservableList<String> roleObservableList = FXCollections.observableArrayList(GlobalVar.apprenant, GlobalVar.secreture, GlobalVar.secreture);
             /** add all choice in the search drop down */
             roleObservableList.add("all");
             /** end observables list of the roles */
@@ -118,7 +112,7 @@ public class ListeUtilisateur implements Initializable {
             dateNaissance.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
             cin.setCellValueFactory(new PropertyValueFactory<>("CIN"));
             numTele.setCellValueFactory(new PropertyValueFactory<>("numTele"));
-            role.setCellValueFactory(new PropertyValueFactory<>("role"));
+           role.setCellValueFactory(new PropertyValueFactory<>("role"));
             /** delete button from table view */
 
 
@@ -146,7 +140,7 @@ public class ListeUtilisateur implements Initializable {
                 });
             });
             /************************/
-            delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+            //delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
 
             Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory
                     = //
@@ -193,7 +187,7 @@ public class ListeUtilisateur implements Initializable {
 
             /* update user */
             /************************/
-            update.setCellValueFactory(new PropertyValueFactory<>("updateeee"));
+            //update.setCellValueFactory(new PropertyValueFactory<>("updateeee"));
 
             Callback<TableColumn<User, String>, TableCell<User, String>> updateFactory
                     = //
@@ -310,33 +304,3 @@ public class ListeUtilisateur implements Initializable {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/****************
-@FXML
-void ajouterUser(ActionEvent event) {
-
-    try {
-        AlertBox.display("Ajouter Utilisateurs");
-    }
-    catch (Exception ex) {
-        ex.printStackTrace();
-    }
-}
-
-
-
- */

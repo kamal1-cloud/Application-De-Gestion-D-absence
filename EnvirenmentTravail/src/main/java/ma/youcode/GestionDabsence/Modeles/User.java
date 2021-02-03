@@ -14,7 +14,7 @@ public class User {
     private boolean isAdmin;
 
     public User( ) {
-
+        isAdmin = false;
     }
 
     public User(long idUser, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, String role) {
@@ -29,8 +29,21 @@ public class User {
         this.role = role;
     }
 
+    public User(long idUser, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, String role, boolean isAdmin) {
+        this.idUser = idUser;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.numTele = numTele;
+        this.email = email;
+        //this.password = password;
+        this.CIN = CIN;
+        this.dateNaissance = dateNaissance;
+        this.role = role;
+        this.isAdmin = isAdmin;
+    }
 
-    public User(long idUser, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, String password, int roleId, boolean isAdmin) {
+
+    public User(long idUser, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, String password, String role, boolean isAdmin) {
         this.idUser = idUser;
         this.nom = nom;
         this.prenom = prenom;
@@ -39,7 +52,7 @@ public class User {
         this.password = password;
         this.CIN = CIN;
         this.dateNaissance = dateNaissance;
-        this.roleId = roleId;
+        this.role = role;
         this.isAdmin = isAdmin;
     }
 

@@ -1,6 +1,7 @@
 package ma.youcode.GestionDabsence.DAO.ApprenantDAO;
 
 import ma.youcode.GestionDabsence.Connectivity.DbConnection;
+import ma.youcode.GestionDabsence.GlobalVar;
 import ma.youcode.GestionDabsence.Modeles.Apprenant;
 import ma.youcode.GestionDabsence.Modeles.User;
 
@@ -17,7 +18,7 @@ public class ApprenantDaoImp implements ApprenantDAO {
 
         conn = DbConnection.getConnection();
 
-        String requete = "select u.*, a.*  from User u, Role r, Apprenant a where u.`role` = r.idRole and r.nom='apprenant' and a.idUser = u.idUser";
+        String requete = "SELECT u.*, a.* FROM User u, Apprenant a WHERE u.`role`='apprenant'";
         statement = conn.prepareStatement(requete);
         resultat = statement.executeQuery();
         while (resultat.next()) {
@@ -31,8 +32,10 @@ public class ApprenantDaoImp implements ApprenantDAO {
             String dateNaissance = resultat.getString("dateNaissance");
             int idPromo = resultat.getInt("idPromo");
             int classeId = resultat.getInt("idClasse");
+            //String role = resultat.getString("role");
             int specialiteId  = resultat.getInt("idSpecialite");
-            Apprenant app = new Apprenant(idUser, nom, prenom, numTele, email, CIN, dateNaissance, classeId, specialiteId, idPromo);
+            boolean isAdmin = resultat.getBoolean("isAdmin");
+            Apprenant app = new Apprenant(idUser, nom, prenom, numTele, email, CIN, dateNaissance, classeId, specialiteId, idPromo, isAdmin);
             apprenants.add(app);
         }
 
@@ -72,8 +75,7 @@ public class ApprenantDaoImp implements ApprenantDAO {
 
     /** inserting apprenant */
     @Override
-    public Long addApprenant(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance,
-                             int role, int idclasse, int idSpecialite, int idPromo) throws SQLException, ClassNotFoundException
+    public Long addApprenant(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int idclasse, int idSpecialite, int idPromo) throws SQLException, ClassNotFoundException
     {
         System.out.println("idclasse " + idclasse + " id specialite " + idSpecialite + " id promo " + idPromo);
         String requete = "INSERT INTO User (nom, prenom, numTele, email, password, CIN, dateNaissance, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
@@ -86,7 +88,7 @@ public class ApprenantDaoImp implements ApprenantDAO {
         statement.setString(5, password);
         statement.setString(6, cin);
         statement.setString(7, dateNaissance);
-        statement.setInt(8, role);
+        statement.setString(8, GlobalVar.apprenant);
 
         Long idUser = 0L;
         boolean isInserted = false;
@@ -116,13 +118,14 @@ public class ApprenantDaoImp implements ApprenantDAO {
     /** insert into Apprenant table */
     private  boolean insertIntoApprenant(Connection conn, Long idUser, int idClasse, int idSpecialite, int idPromo) throws SQLException, ClassNotFoundException{
         String requete;
-        if (idClasse == -1) {
+        if (idClasse != -1 && idSpecialite != -1) {
+            requete = "insert into Apprenant(idUser, idClasse, idPromo, idSpecialite) values(?, ?, ?, ?);";
+
+        }else if (idSpecialite != -1) {
             requete = "insert into Apprenant(idUser, idSpecialite, idPromo) values(?, ?, ?);";
-        }else if (idSpecialite == -1) {
-            requete = "insert into Apprenant(idUser, idClasse, idPromo) values(?, ?, ?);";
         }
         else {
-            requete = "insert into Apprenant(idUser, idClasse, idPromo, idSpecialite) values(?, ?, ?, ?);";
+            requete = "insert into Apprenant(idUser, idClasse, idPromo) values(?, ?, ?);";
         }
         statement = conn.prepareStatement(requete);
         statement.setLong(1, idUser);
@@ -131,10 +134,10 @@ public class ApprenantDaoImp implements ApprenantDAO {
             statement.setInt(2, idClasse);
             statement.setInt(4, idSpecialite);
         }else if(idSpecialite == -1) {
-            statement.setInt(2, idSpecialite);
+            statement.setInt(2, idClasse);
         }
         else {
-            statement.setInt(2, idClasse);
+            statement.setInt(2, idSpecialite);
         }
 
         int affectedRows = statement.executeUpdate();

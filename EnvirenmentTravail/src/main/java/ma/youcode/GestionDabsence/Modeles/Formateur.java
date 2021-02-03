@@ -8,8 +8,8 @@ public class Formateur extends User {
     private int specialite;
     private boolean isFirstYear;
 
-    public Formateur(Long id, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, int classe, int specialite) {
-        super(id, nom, prenom, numTele, email, CIN, dateNaissance, "formateur");
+    public Formateur(Long id, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, int classe, int specialite, boolean isAdmin) {
+        super(id, nom, prenom, numTele, email, CIN, dateNaissance, "formateur", isAdmin);
         this.classe = classe;
         this.specialite = specialite;
     }
@@ -21,6 +21,7 @@ public class Formateur extends User {
     public Formateur(Long idApprenant, String nom, String prenom, String numTele, String email, String cin, String dateNaissance) {
         super(idApprenant, nom, prenom, numTele, email, cin, dateNaissance, "formateur");
     }
+
 
     public int getClasse() {
         return classe;

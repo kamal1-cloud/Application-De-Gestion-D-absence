@@ -13,7 +13,6 @@ import ma.youcode.GestionDabsence.DAO.AdminDAO.AdminDaoImp;
 import ma.youcode.GestionDabsence.DAO.ApprenantDAO.ApprenantDaoImp;
 import ma.youcode.GestionDabsence.DAO.ClasseDAO.ClassDaoImp;
 import ma.youcode.GestionDabsence.DAO.PromtionDAO.PromotionDaoImp;
-import ma.youcode.GestionDabsence.DAO.RolesDAO.RolesDaoImp;
 import ma.youcode.GestionDabsence.DAO.SpecialiteDAO.SpecialiteDaoImp;
 import ma.youcode.GestionDabsence.Modeles.*;
 
@@ -58,9 +57,6 @@ public class AddApprenant implements Initializable{
     @FXML
     private ComboBox<String> specialiteCombo;
 
-
-    RolesDaoImp rolesDaoImp;
-
     ClassDaoImp classDaoImp;
 
     SpecialiteDaoImp specialiteDaoImp;
@@ -76,7 +72,7 @@ public class AddApprenant implements Initializable{
     private SingletonObject singletonObject;
 
     public AddApprenant() {
-        this.rolesDaoImp = new RolesDaoImp();
+        //this.rolesDaoImp = new RolesDaoImp();
         this.classDaoImp = new ClassDaoImp();
         this.specialiteDaoImp = new SpecialiteDaoImp();
         adminDaoImp = new AdminDaoImp();
@@ -152,11 +148,14 @@ public class AddApprenant implements Initializable{
             Long idApprenant = 0L;
             Apprenant apprenant = null;
             /** add apprenant safely */
-            if (classeValue.isEmpty()) {
+            if (!classeValue.isEmpty() && !specialiteValue.isEmpty()) {
                 try {
                     idApprenant = apprenantDaoImp.addApprenant(nomValue, prenomValue, emailValue, numTeleValue,
-                            passwordValue, cinValue, dateNaissanceValue, 1, -1, specialiteHashMp.get(specialiteValue), promoHashMp.get(promotionValue));
-                    apprenant = new Apprenant(idApprenant, nomValue, prenomValue, numTeleValue, emailValue, cinValue, dateNaissanceValue, -1, specialiteHashMp.get(specialiteValue), promoHashMp.get(promotionValue));
+                            passwordValue, cinValue, dateNaissanceValue, classHashMp.get(classeValue), specialiteHashMp.get(specialiteValue), promoHashMp.get(promotionValue));
+
+                    apprenant = new Apprenant(idApprenant, nomValue, prenomValue, numTeleValue, emailValue, cinValue, dateNaissanceValue, classHashMp.get(classeValue), specialiteHashMp.get(specialiteValue), promoHashMp.get(promotionValue));
+
+                    // public Long addApprenant(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int idclasse, int idSpecialite, int idPromo) throws SQLException, ClassNotFoundException
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -165,7 +164,7 @@ public class AddApprenant implements Initializable{
             } else if (specialiteValue.isEmpty()) {
                 try {
                     idApprenant = apprenantDaoImp.addApprenant(nomValue, prenomValue, emailValue, numTeleValue,
-                            passwordValue, cinValue, dateNaissanceValue, 1, classHashMp.get(classeValue), -1, promoHashMp.get(promotionValue));
+                            passwordValue, cinValue, dateNaissanceValue, classHashMp.get(classeValue), -1, promoHashMp.get(promotionValue));
                     apprenant = new Apprenant(idApprenant, nomValue, prenomValue, numTeleValue, emailValue, cinValue, dateNaissanceValue, classHashMp.get(classeValue),-1, promoHashMp.get(promotionValue));
 
                 } catch (Exception ex) {
@@ -175,9 +174,9 @@ public class AddApprenant implements Initializable{
             } else {
                 try {
                     idApprenant = apprenantDaoImp.addApprenant(nomValue, prenomValue, emailValue, numTeleValue,
-                            passwordValue, cinValue, dateNaissanceValue, 1, classHashMp.get(classeValue), specialiteHashMp.get(specialiteValue), promoHashMp.get(promotionValue));
+                            passwordValue, cinValue, dateNaissanceValue, 1, specialiteHashMp.get(specialiteValue), promoHashMp.get(promotionValue));
+                    apprenant = new Apprenant(idApprenant, nomValue, prenomValue, numTeleValue, emailValue, cinValue, dateNaissanceValue, -1, specialiteHashMp.get(specialiteValue), promoHashMp.get(promotionValue));
 
-                    apprenant = new Apprenant(idApprenant, nomValue, prenomValue, numTeleValue, emailValue, cinValue, dateNaissanceValue, classHashMp.get(classeValue), specialiteHashMp.get(specialiteValue), promoHashMp.get(promotionValue));
 
                 } catch (Exception ex) {
                     ex.printStackTrace();

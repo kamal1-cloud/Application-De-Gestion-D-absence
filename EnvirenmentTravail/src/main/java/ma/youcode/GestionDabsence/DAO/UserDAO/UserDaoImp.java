@@ -98,11 +98,10 @@ public class UserDaoImp implements UserDAO {
     public User getUserByEmailOrCin(String target, String password) throws ClassNotFoundException, SQLException {
         User user = null;
         conn = DbConnection.getConnection();
-        String requete = "select * from User where email = ? or CIN=? and password=?";
+        String requete = "select * from User where email =? and password=?";
         statement = conn.prepareStatement(requete);
         statement.setString(1, target);
-        statement.setString(2, target);
-        statement.setString(3, password);
+        statement.setString(2, password);
         resultat = statement.executeQuery();
         while (resultat.next()) {
             Long idUser = resultat.getLong("idUser");
@@ -111,13 +110,13 @@ public class UserDaoImp implements UserDAO {
             String numTele = resultat.getString("numTele");
             String email = resultat.getString("email");
             String CIN = resultat.getString("CIN");
-            int roleId = resultat.getInt("role");
+            String role = resultat.getString("role");
             String dateNaissance = resultat.getString("dateNaissance");
             String passwordValue = resultat.getString("password");
             boolean isAdmin = resultat.getBoolean("isAdmin");
             System.out.println("is Admin " + isAdmin);
     //public User(long idUser, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, String password, String role) {
-            user = new User(idUser, nom, prenom, numTele, email, CIN, dateNaissance, passwordValue, roleId, isAdmin);
+            user = new User(idUser, nom, prenom, numTele, email, CIN, dateNaissance, passwordValue, role, isAdmin);
         }
 
         resultat.close();

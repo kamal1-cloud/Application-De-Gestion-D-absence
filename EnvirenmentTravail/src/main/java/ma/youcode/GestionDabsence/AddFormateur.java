@@ -170,7 +170,7 @@ public class AddFormateur<errorMessage> implements Initializable {
             if (isClass) {
                 try {
                     idFormateur = formateurDaoImp.addFormateurwithClasse(nomValue, prenomValue, emailValue, numTeleValue,
-                            passwordValue, cinValue, dateNaissanceValue, 3, classes.get(classeName));
+                            passwordValue, cinValue, dateNaissanceValue, classes.get(classeName));
                     System.out.println("classes name id is " + classes.get(classeName));
                     //    public Formateur(Long id, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, int classe) {
                     Formateur formateur = new Formateur(idFormateur, nomValue, prenomValue, numTeleValue, emailValue, cinValue, dateNaissanceValue, classes.get(classeName));
@@ -188,7 +188,7 @@ public class AddFormateur<errorMessage> implements Initializable {
             else {
                 try {
                     idFormateur = formateurDaoImp.addFormateurwithSpecialite(nomValue, prenomValue, emailValue, numTeleValue,
-                            passwordValue, cinValue, dateNaissanceValue, 3, classes.get(classeName));
+                            passwordValue, cinValue, dateNaissanceValue, classes.get(classeName));
                     System.out.println("classes name id is " + classes.get(classeName));
                     System.out.println("classes name id is " + classes.get(classeName));
                     //    public Formateur(Long id, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, int classe) {

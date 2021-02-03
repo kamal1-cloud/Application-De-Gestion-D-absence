@@ -11,8 +11,18 @@ public class Apprenant extends User {
 
 
 
+    public Apprenant(Long idApprenant, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, boolean isAdmin) {
+        super(idApprenant, nom, prenom, numTele, email, CIN, dateNaissance, "apprenant", isAdmin);
+    }
     public Apprenant(Long idApprenant, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance) {
         super(idApprenant, nom, prenom, numTele, email, CIN, dateNaissance, "apprenant");
+    }
+
+    public Apprenant(Long idApprenant, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, int classe, int specialite, int promotion, boolean isAdmin) {
+        super(idApprenant, nom, prenom, numTele, email, CIN, dateNaissance, "apprenant", isAdmin);
+        this.classe = classe;
+        this.specialite = specialite;
+        this.promotion = promotion;
     }
 
     public Apprenant(Long idApprenant, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance, int classe, int specialite, int promotion) {

@@ -14,6 +14,9 @@ import java.util.regex.Pattern;
 public class AlertBox {
 
     static Stage window;
+
+    /***** adding apprenant form *****************/
+    /** when we call this method will load fxml file to add new apprenant */
     public static void ApprenantAddForm(String title) throws IOException {
         window = new Stage();
 
@@ -27,6 +30,8 @@ public class AlertBox {
         window.showAndWait();
     }
 
+    /** to update a user information */
+    /** accept title: String to display as a title of window and user: User represent user trget to update */
     public static void update(String title, User user) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 AlertBox.class.getResource(
@@ -45,6 +50,8 @@ public class AlertBox {
         window.showAndWait();
     }
 
+    /***** adding secretaire form *****************/
+    /** when we call this method will load fxml file to add new secretaire */
     public static void secretaireAddForm(String title) throws IOException {
         window = new Stage();
         window.setResizable(false);
@@ -58,6 +65,7 @@ public class AlertBox {
     }
 
     /***** adding formateur form *****************/
+    /** when we call this method will load fxml file to add new formateur */
     public static void formateurAddForm(String title) throws IOException {
         window = new Stage();
         window.setResizable(false);
@@ -72,7 +80,9 @@ public class AlertBox {
         window.showAndWait();
     }
 
-    /********** error to display error ************/
+    /**********to display error ************/
+    /** create new Stage(window) to display the error that occurs in runtime */
+    /** exemple error : database connecion, error in loading some fxml .....*/
     public static void displayError(String message) {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -96,10 +106,14 @@ public class AlertBox {
     }
 
     /*********************** validate data ************************/
+    /** accept list of string -> HashMap of String errors */
+    /** validate those if match some rules and length */
     public static HashMap<String, String> validate(String nomValue, String prenomValue, String numTeleValue, String cinValue,  String passwordValue, String dateNaissanceValue, String emailValue) {
      HashMap<String, String> errors = new HashMap<>();
      Pattern numPattern = Pattern.compile("[0-9]+");
      Matcher numMatcher = numPattern.matcher(numTeleValue);
+     Pattern charPattern = Pattern.compile("[a-zA-Z ]+");
+
 
      /*********** pattern for email *********/
      Pattern emailPattern = Pattern.compile("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$");
@@ -110,12 +124,16 @@ public class AlertBox {
          errors.put("nom", "nom must be greater than 3 character");
      }else if (nomValue.length() > 20) {
          errors.put("nom", "nom must be less than 20 character");
+     }else if (!charPattern.matcher(nomValue).matches()) {
+         errors.put("nom", "nom must contains character only");
      }
      /** validate prenom value **/
     if (prenomValue.length() < 3) {
         errors.put("prenom", "prenom must be greater than 3 character");
     }else if (nomValue.length() > 20) {
         errors.put("prenom", "prenom must be less than 20 character");
+    }else if (!charPattern.matcher(prenomValue).matches()) {
+        errors.put("prenom", "prenom must contains character only");
     }
 
     /** validate numTelephone **/
