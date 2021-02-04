@@ -7,23 +7,28 @@ public class ApprenantAbsence {
     private String specialite;
     private String dateDebu;
     private String dateFin;
-    private String isJustifie;
-    private  int retard;
+    private byte isJustifie;
+    private  boolean retard;
+    private String email;
+    private String numTele;
+    private int absenceId;
 
     public ApprenantAbsence(){
 
-
     }
 
-    public ApprenantAbsence(String cin, String nom, String prenom, String specialite, String dateDebu, String dateFin, String isJustifie, int retard) {
+    public ApprenantAbsence(int absenceId, String cin, String nom, String prenom, String email, String numTele,String dateDebu, String dateFin, byte isJustifie, boolean retard) {
+        this.absenceId = absenceId;
         this.cin = cin;
         this.nom = nom;
         this.prenom = prenom;
-        this.specialite = specialite;
+        //this.specialite = specialite;
         this.dateDebu = dateDebu;
         this.dateFin = dateFin;
         this.isJustifie = isJustifie;
         this.retard = retard;
+        this.email = email;
+        this.numTele = numTele;
     }
 
     public String getCin() {
@@ -74,19 +79,42 @@ public class ApprenantAbsence {
         this.dateFin = dateFin;
     }
 
-    public String getIsJustifie() {
+    public byte getIsJustifie() {
         return isJustifie;
     }
 
-    public void setIsJustifie(String isJustifie) {
+    public void setIsJustifie(byte isJustifie) {
         this.isJustifie = isJustifie;
     }
 
-    public int getRetard() {
+    public boolean isRetard() {
         return retard;
     }
 
-    public void setRetard(int retard) {
+    public void setRetard(boolean retard) {
         this.retard = retard;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNumTele() {
+        return numTele;
+    }
+
+    public void setNumTele(String numTele) {
+        this.numTele = numTele;
+    }
+
+    public int getAbsenceId() {
+        return absenceId;
+    }
+
+    public void setAbsenceId(int absenceId) {
+        this.absenceId = absenceId;
     }
 }

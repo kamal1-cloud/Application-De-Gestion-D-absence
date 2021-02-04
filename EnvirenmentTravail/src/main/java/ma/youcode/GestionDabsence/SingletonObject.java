@@ -19,9 +19,6 @@ import java.util.List;
 
 public class SingletonObject
 {
-
-    public ArrayList<Role> roles;
-
     public ArrayList<Classe> classes;
 
     public ArrayList<Specialite> specialites;

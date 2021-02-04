@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ma.youcode.GestionDabsence.SecSceneController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.youcode.GestionDabsence.SecSceneController">
+   <children>
+      <TableView fx:id="usersListe" editable="true" layoutX="39.0" layoutY="111.0" minHeight="698.0" minWidth="-Infinity" prefHeight="709.0" prefWidth="1706.0">
+         <columns>
+            <TableColumn fx:id="nom" prefWidth="230.0" text="nom" />
+            <TableColumn fx:id="prenom" prefWidth="223.0" text="prenom" />
+            <TableColumn fx:id="email" prefWidth="276.0" text="email" />
+            <TableColumn fx:id="numTele" prefWidth="237.0" text="numero tel" />
+            <TableColumn fx:id="delete" prefWidth="118.0" />
+            <TableColumn fx:id="update" prefWidth="151.0" />
+            <TableColumn fx:id="dateDebu" prefWidth="151.0" text="date Debu" />
+            <TableColumn fx:id="dateEnd" prefWidth="151.0" text="date End" />
+         </columns>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </TableView>
+      <HBox layoutX="1023.0" layoutY="37.0" prefHeight="46.0" prefWidth="473.0">
+         <children>
+            <TextField fx:id="searchInput" prefHeight="46.0" prefWidth="1046.0" promptText="find user by nom or CIN" />
+         </children>
+      </HBox>
+   </children>
 </AnchorPane>

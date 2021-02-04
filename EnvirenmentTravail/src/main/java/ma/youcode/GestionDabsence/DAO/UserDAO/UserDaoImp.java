@@ -64,7 +64,7 @@ public class UserDaoImp implements UserDAO {
             return true;
         }
         else {
-            return true;
+            return false;
         }
 
     }

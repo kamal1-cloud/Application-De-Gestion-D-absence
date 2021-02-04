@@ -175,6 +175,12 @@ public class SecretaireDaoImp implements SecretaireDAO {
 
     @Override
     public ObservableList<ApprenantAbsence> AfficheApprantAbsence() {
+        return null;
+    }
+
+    /*
+    @Override
+    public ObservableList<ApprenantAbsence> AfficheApprantAbsence() {
         ObservableList<ApprenantAbsence> ApprenantsAbsentes= FXCollections.observableArrayList();
         Connection conn = null;
         try {
@@ -200,7 +206,7 @@ public class SecretaireDaoImp implements SecretaireDAO {
         }
         return ApprenantsAbsentes;
     }
-
+*/
 
 
 
