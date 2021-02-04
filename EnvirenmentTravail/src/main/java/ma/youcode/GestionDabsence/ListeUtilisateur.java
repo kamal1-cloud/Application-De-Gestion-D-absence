@@ -34,6 +34,19 @@ public class ListeUtilisateur implements Initializable {
     @FXML
             private Pane paneRoot;
     */
+
+    @FXML
+    public Label numApprenant;
+    @FXML
+    public Label numSecretaire;
+    @FXML
+    public Label numFormateur;
+    @FXML
+    public Label numSpecialite;
+    @FXML
+    public Label numClasse;
+
+
     UserDaoImp userDaoImp;
     AdminDaoImp adminDaoImp;
     @FXML
@@ -84,7 +97,6 @@ public class ListeUtilisateur implements Initializable {
 
     SingletonObject singletonObject;
 
-
     public ListeUtilisateur() {
         //apprenantDaoImp = new ApprenantDaoImp();
         userDaoImp = new UserDaoImp();
@@ -93,9 +105,18 @@ public class ListeUtilisateur implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            /** add delete button in each row in table view ****/
-            /************* end ***********************/
             singletonObject = SingletonObject.getSingletonObject();
+            /** add delete button in each row in table view ****/
+            /**
+             * load data from database
+             * */
+            numApprenant.setText(String.valueOf(singletonObject.apprenants.size()));
+            numSecretaire.setText(String.valueOf(singletonObject.secretaires.size()));
+            numFormateur.setText(String.valueOf(singletonObject.formaterus.size()));
+            numSpecialite.setText(String.valueOf(singletonObject.specialites.size()));
+            numClasse.setText(String.valueOf(singletonObject.classes.size()));
+            /************* end ***********************/
+
              //apprenantTableView = new TableView<>();
             //roleArrayList = singletonObject.roles;
             //specialitesArrayList =

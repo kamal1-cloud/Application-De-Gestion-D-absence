@@ -1,9 +1,5 @@
 package ma.youcode.GestionDabsence;
-
-import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -24,7 +20,7 @@ public class SecSceneController implements Initializable {
     UserDaoImp userDaoImp;
     AdminDaoImp adminDaoImp;
     @FXML
-    private TableView<ApprenantAbsence> usersListe;
+    private TableView<ApprenantAbsence> apprenantAbsenceList;
     @FXML
     private TableColumn<ApprenantAbsence, String> nom;
 
@@ -114,7 +110,7 @@ public class SecSceneController implements Initializable {
             /************************/
             //delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
 
-            Callback<TableColumn<ApprenantAbsence, String>, TableCell<User, String>> cellFactory
+            Callback<TableColumn<ApprenantAbsence, String>, TableCell<ApprenantAbsence, String>> cellFactory
                     = //
                     new Callback<>() {
                         @Override
@@ -134,10 +130,10 @@ public class SecSceneController implements Initializable {
                                         btn.setOnAction(event -> {
                                             try {
                                                 boolean res = absenceDaoImp.accepteAbsence(temp.getAbsenceId());
+                                                secSingletom.apprenantAbsences.remove(temp);
+                                                secSingletom.apprenantAbsencesFiltred.remove(temp);
                                                 if (res) {
-                                                    System.out.println(secSingletom.apprenantAbsences.size());
-                                                    secSingletom.apprenantAbsences.remove(temp);
-                                                    System.out.println(temp instanceof ApprenantAbsence);
+
                                                 }else {
                                                     /* display some error */
                                                 }
@@ -183,9 +179,10 @@ public class SecSceneController implements Initializable {
                                         btn.setOnAction(event -> {
                                             try {
                                                 boolean res = absenceDaoImp.refuseAbsence(temp.getAbsenceId());
+                                                secSingletom.apprenantAbsences.remove(temp);
                                                 if (res) {
-                                                    System.out.println(secSingletom.apprenantAbsences.size());
-                                                    secSingletom.apprenantAbsences.remove(temp);
+                                                    //System.out.println(secSingletom.apprenantAbsences.size());
+                                                    //secSingletom.apprenantAbsences.remove(temp);
                                                 }else {
                                                     /* display some error */
                                                     System.out.println("something wrong happpen");
@@ -203,12 +200,11 @@ public class SecSceneController implements Initializable {
                             return cell;
                         }
                     };
-
             update.setCellFactory(updateFactory);
             /**************************/
 
             /** end combo box*/
-            usersListe.setItems(FXCollections.observableArrayList(secSingletom.apprenantAbsencesFiltred));
+            apprenantAbsenceList.setItems(secSingletom.apprenantAbsencesFiltred);
         }
         catch (Exception e) {
             e.printStackTrace();

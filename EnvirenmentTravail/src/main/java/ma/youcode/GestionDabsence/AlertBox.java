@@ -23,7 +23,9 @@ public class AlertBox {
         window.setResizable(false);
         window.setTitle(title);
 
-        Parent root = FXMLLoader.load(AlertBox.class.getResource("addApprenant.fxml"));
+       // Parent root = FXMLLoader.load(AlertBox.class.getResource("addApprenant.fxml"));
+        Parent root = FXMLLoader.load(AlertBox.class.getResource("formulaire.fxml"));
+
         //Parent quiz = FXMLLoader.load(getClass().getResource("Quiz.fxml"));
         Scene scene = new Scene(root);
         window.setScene(scene);

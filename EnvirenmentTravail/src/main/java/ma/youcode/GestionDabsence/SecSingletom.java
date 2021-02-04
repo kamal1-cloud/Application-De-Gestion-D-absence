@@ -10,15 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SecSingletom {
-
-    ArrayList<User> users;
-    ObservableList<User> apprenants;
-    FilteredList<User> appreFiltred;
     public ObservableList<ApprenantAbsence> apprenantAbsences;
-    ArrayList<Absence> absences;
+    public FilteredList<ApprenantAbsence> apprenantAbsencesFiltred;
+
+    public ArrayList<User> users;
+    public ObservableList<User> apprenants;
+    public FilteredList<User> appreFiltred;
+    public ArrayList<Absence> absencesNonJustifie;
     private ApprenantDaoImp apprenantDaoImp;
     private AbsenceDaoImp absenceDaoImp;
-    FilteredList<ApprenantAbsence> apprenantAbsencesFiltred;
 
 
     private SecSingletom() throws SQLException, ClassNotFoundException
@@ -27,12 +27,12 @@ public class SecSingletom {
         apprenantDaoImp = new ApprenantDaoImp();
         absenceDaoImp = new AbsenceDaoImp();
         users = apprenantDaoImp.getAll();
-        absences = absenceDaoImp.getNonJustifieAbsence();
+        absencesNonJustifie = absenceDaoImp.getNonJustifieAbsence();
         apprenants = FXCollections.observableArrayList(users);
         apprenantAbsences = FXCollections.observableArrayList();
         appreFiltred = new FilteredList<>(apprenants);
 
-        for (Absence abs: absences) {
+        for (Absence abs: absencesNonJustifie) {
             User target = find(abs.getIdApprenant());
             if (target != null) {
                 //    public ApprenantAbsence(int absenceId, String cin, String nom, String prenom,

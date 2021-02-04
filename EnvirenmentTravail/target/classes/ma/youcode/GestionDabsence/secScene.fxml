@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.youcode.GestionDabsence.SecSceneController">
    <children>
-      <TableView fx:id="usersListe" editable="true" layoutX="39.0" layoutY="111.0" minHeight="698.0" minWidth="-Infinity" prefHeight="709.0" prefWidth="1706.0">
+      <TableView fx:id="apprenantAbsenceList" editable="true" layoutX="39.0" layoutY="111.0" minHeight="698.0" minWidth="-Infinity" prefHeight="709.0" prefWidth="1706.0">
          <columns>
             <TableColumn fx:id="nom" prefWidth="230.0" text="nom" />
             <TableColumn fx:id="prenom" prefWidth="223.0" text="prenom" />

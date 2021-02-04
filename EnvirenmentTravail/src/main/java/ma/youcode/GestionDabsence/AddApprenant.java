@@ -1,5 +1,6 @@
 package ma.youcode.GestionDabsence;
 
+import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import ma.youcode.GestionDabsence.Modeles.*;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -158,8 +160,15 @@ public class AddApprenant implements Initializable{
                     // public Long addApprenant(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance, int idclasse, int idSpecialite, int idPromo) throws SQLException, ClassNotFoundException
 
                 } catch (Exception ex) {
-                    ex.printStackTrace();
-                    AlertBox.displayError("failed while inserting apprenant");
+                    if (ex instanceof SQLIntegrityConstraintViolationException) {
+                        System.out.println(((SQLIntegrityConstraintViolationException) ex).getErrorCode());
+                        System.out.println(ex.getMessage());
+                        System.out.println(((SQLIntegrityConstraintViolationException) ex).getSQLState());
+                        AlertBox.displayError("cin or phone number or email already exist");
+                    }else {
+                        ex.printStackTrace();
+                        AlertBox.displayError("failed while inserting apprenant");
+                    }
                 }
             } else if (specialiteValue.isEmpty()) {
                 try {
