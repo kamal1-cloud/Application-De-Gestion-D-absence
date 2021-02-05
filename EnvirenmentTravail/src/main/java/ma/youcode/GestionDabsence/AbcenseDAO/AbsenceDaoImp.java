@@ -4,6 +4,7 @@ import ma.youcode.GestionDabsence.Connectivity.DbConnection;
 import ma.youcode.GestionDabsence.Modeles.Absence;
 import ma.youcode.GestionDabsence.Modeles.Apprenant;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -78,5 +79,43 @@ public class AbsenceDaoImp implements AbsenceDAO{
         }else {
             return false;
         }
+    }
+
+    @Override
+    public ArrayList<Absence> getAllReviewedAbs() throws SQLException, ClassNotFoundException {
+            ArrayList<Absence> absences = new ArrayList<>();
+            String query = "select * from Absence where isJustifie=1 or isJustifie=2;";
+            connection = DbConnection.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String dateDebu = resultSet.getString("dateDebu");
+                String dateFin = resultSet.getString("dateFin");
+                Byte isJustifie = resultSet.getByte("isJustifie");
+                boolean retard = resultSet.getBoolean("retard");
+                Long idApprenant = resultSet.getLong("idApprenant");
+                String ts = resultSet.getString("ts");
+
+                //Absence(int id, String dateDebu, String dateFin, byte isJustifie, boolean retard, Long idApprenant, String ts)
+                Absence absence = new Absence(id, dateDebu, dateFin, isJustifie, retard, idApprenant, ts);
+                absences.add(absence);
+            }
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+            return absences;
+    }
+    @Override
+    public boolean removeAbsenceById(int id) throws SQLException, ClassNotFoundException {
+        String query = "DELETE FROM Absence where id=?";
+        connection = DbConnection.getConnection();
+        preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, id);
+        int res = preparedStatement.executeUpdate();
+        if (res == 0) {
+            return false;
+        }
+        return true;
     }
 }

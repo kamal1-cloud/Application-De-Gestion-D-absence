@@ -20,6 +20,10 @@ public class SecSingletom {
     private ApprenantDaoImp apprenantDaoImp;
     private AbsenceDaoImp absenceDaoImp;
 
+    ObservableList<ApprenantAbsence> reviewedAbsence;
+    ArrayList<Absence> markedAbsence;
+    FilteredList<ApprenantAbsence> filtedReviewedAbsence;
+
 
     private SecSingletom() throws SQLException, ClassNotFoundException
     {
@@ -31,18 +35,31 @@ public class SecSingletom {
         apprenants = FXCollections.observableArrayList(users);
         apprenantAbsences = FXCollections.observableArrayList();
         appreFiltred = new FilteredList<>(apprenants);
+        markedAbsence = absenceDaoImp.getAllReviewedAbs();
+        reviewedAbsence = FXCollections.observableArrayList();
 
         for (Absence abs: absencesNonJustifie) {
             User target = find(abs.getIdApprenant());
             if (target != null) {
-                //    public ApprenantAbsence(int absenceId, String cin, String nom, String prenom,
-                //    String email, String numTele,String dateDebu, String dateFin, byte isJustifie, boolean retard) {
                 ApprenantAbsence temp = new ApprenantAbsence(abs.getId(), target.getCIN(), target.getNom(), target.getPrenom(), target.getEmail(),target.getNumTele(),
                          abs.getDateDebu(), abs.getDateFin(), abs.getIsJustifie(), abs.isRetard());
                 apprenantAbsences.add(temp);
             }
         }
         apprenantAbsencesFiltred = new FilteredList<>(apprenantAbsences);
+
+
+
+        /* map user to absence marked as accepted or refused */
+        for (Absence abs: markedAbsence) {
+            User target = find(abs.getIdApprenant());
+            if (target != null) {
+                ApprenantAbsence temp = new ApprenantAbsence(abs.getId(), target.getCIN(), target.getNom(), target.getPrenom(), target.getEmail(),target.getNumTele(),
+                        abs.getDateDebu(), abs.getDateFin(), abs.getIsJustifie(), abs.isRetard());
+                reviewedAbsence.add(temp);
+            }
+        }
+        filtedReviewedAbsence = new FilteredList<>(reviewedAbsence);
     }
     private User find(Long id) {
         for (User user : users) {

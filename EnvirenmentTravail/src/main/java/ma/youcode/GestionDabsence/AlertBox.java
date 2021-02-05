@@ -12,9 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AlertBox {
-
     static Stage window;
-
     /***** adding apprenant form *****************/
     /** when we call this method will load fxml file to add new apprenant */
     public static void ApprenantAddForm(String title) throws IOException {
@@ -24,7 +22,7 @@ public class AlertBox {
         window.setTitle(title);
 
        // Parent root = FXMLLoader.load(AlertBox.class.getResource("addApprenant.fxml"));
-        Parent root = FXMLLoader.load(AlertBox.class.getResource("formulaire.fxml"));
+        Parent root = FXMLLoader.load(AlertBox.class.getResource("addApprenant.fxml"));
 
         //Parent quiz = FXMLLoader.load(getClass().getResource("Quiz.fxml"));
         Scene scene = new Scene(root);

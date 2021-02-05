@@ -1,5 +1,6 @@
 package ma.youcode.GestionDabsence;
 
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +17,6 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class AddFormateur<errorMessage> implements Initializable {
 
@@ -69,6 +69,9 @@ public class AddFormateur<errorMessage> implements Initializable {
 
     @FXML
     private VBox passwordBox;
+
+    @FXML
+    private JFXComboBox classeSpe;
     /*********************/
 
     boolean isClass = false;
@@ -215,21 +218,21 @@ public class AddFormateur<errorMessage> implements Initializable {
         for (Classe c : singletonObject.classes) {
             classes.put(c.getNom(), c.getIdClasse());
         }
-        classeSpecialite.getChildren().clear();
-        claSpe.setItems(FXCollections.observableArrayList(classes.keySet()));
-        classeSpecialite.getChildren().add(claSpe);
+        //classeSpecialite.getChildren().clear();
+        classeSpe.setItems(FXCollections.observableArrayList(classes.keySet()));
+        //classeSpecialite.getChildren().add(claSpe);
     }
 
     @FXML
     void formateurSecondYear(ActionEvent event) {
-        classes.clear();
+       classes.clear();
         isClass = false;
         for (Specialite c : singletonObject.specialites) {
             classes.put(c.getNom(), c.getIdSpecialite());
         }
-        classeSpecialite.getChildren().clear();
-        claSpe.setItems(FXCollections.observableArrayList(classes.keySet()));
-        classeSpecialite.getChildren().add(claSpe);
+        //classeSpecialite.getChildren().clear();
+        classeSpe.setItems(FXCollections.observableArrayList(classes.keySet()));
+        //classeSpecialite.getChildren().add(claSpe);
     }
 
     @Override

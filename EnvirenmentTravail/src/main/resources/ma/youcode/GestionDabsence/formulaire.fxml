@@ -18,7 +18,7 @@
         <HBox layoutX="285.0" layoutY="806.0" prefHeight="38.0" prefWidth="138.0" />
         <Pane layoutX="58.0" layoutY="74.0" prefHeight="668.0" prefWidth="384.0" style="-fx-background-color: #DCDBD7;">
             <children>
-                <JFXTextField fx:id="nom" layoutX="19.0" layoutY="72.0" prefHeight="26.0" prefWidth="346.0" promptText="Nom" unFocusColor="#07319c" />
+                <JFXTextField fx:id="nom" labelFloat="true" layoutX="19.0" layoutY="72.0" prefHeight="26.0" prefWidth="346.0" promptText="Nom" unFocusColor="#07319c" />
                 <JFXTextField fx:id="prenom" layoutX="19.0" layoutY="119.0" prefHeight="26.0" prefWidth="346.0" promptText="prenom" unFocusColor="#07319c" />
                 <JFXTextField fx:id="email" layoutX="19.0" layoutY="165.0" prefHeight="26.0" prefWidth="346.0" promptText="email" unFocusColor="#07319c" />
                 <JFXTextField fx:id="numTele" layoutX="19.0" layoutY="215.0" prefHeight="26.0" prefWidth="346.0" promptText="Numero de telephone" unFocusColor="#07319c" />

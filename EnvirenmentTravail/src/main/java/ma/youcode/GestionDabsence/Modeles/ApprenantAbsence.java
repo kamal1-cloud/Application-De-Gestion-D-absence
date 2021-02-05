@@ -1,5 +1,7 @@
 package ma.youcode.GestionDabsence.Modeles;
 
+import ma.youcode.GestionDabsence.GlobalVar;
+
 public class ApprenantAbsence {
     private String cin;
     private String nom;
@@ -12,6 +14,8 @@ public class ApprenantAbsence {
     private String email;
     private String numTele;
     private int absenceId;
+    private String absAccp;
+    private String change = "";
 
     public ApprenantAbsence(){
 
@@ -29,6 +33,13 @@ public class ApprenantAbsence {
         this.retard = retard;
         this.email = email;
         this.numTele = numTele;
+        if (isJustifie == GlobalVar.ACCEPTER) {
+            this.absAccp = "accepter";
+            this.change = "refuser";
+        }else if (isJustifie == GlobalVar.REFUSER) {
+            this.absAccp = "refuser";
+            this.change = "accepter";
+        }
     }
 
     public String getCin() {
@@ -116,5 +127,21 @@ public class ApprenantAbsence {
 
     public void setAbsenceId(int absenceId) {
         this.absenceId = absenceId;
+    }
+
+    public String getAbsAccp() {
+        return absAccp;
+    }
+
+    public void setAbsAccp(String absAccp) {
+        this.absAccp = absAccp;
+    }
+
+    public String getChange() {
+        return change;
+    }
+
+    public void setChange(String change) {
+        this.change = change;
     }
 }

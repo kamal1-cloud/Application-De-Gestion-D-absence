@@ -1,5 +1,8 @@
 package ma.youcode.GestionDabsence;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,35 +32,35 @@ import java.util.regex.Pattern;
 
 public class AddApprenant implements Initializable{
     @FXML
-    private TextField nom;
+    private JFXTextField nom;
 
     @FXML
-    private TextField prenom;
+    private JFXTextField prenom;
 
     @FXML
-    private TextField email;
+    private JFXTextField email;
 
     @FXML
-    private TextField numTele;
+    private JFXTextField numTele;
 
     @FXML
-    private TextField cin;
+    private JFXTextField cin;
 
     @FXML
-    private PasswordField password;
+    private JFXPasswordField password;
 
     @FXML
     private DatePicker dateNaissance;
 
 
     @FXML
-    private ComboBox<String> classeCombo;
+    private JFXComboBox<String> classeCombo;
 
     @FXML
-    private ComboBox<String> promotionCombo;
+    private JFXComboBox<String> promotionCombo;
 
     @FXML
-    private ComboBox<String> specialiteCombo;
+    private JFXComboBox<String> specialiteCombo;
 
     ClassDaoImp classDaoImp;
 
@@ -229,5 +232,18 @@ public class AddApprenant implements Initializable{
         catch(Exception ex) {
             ex.printStackTrace();
         }
+
+        /***************
+         *
+         * adding validation
+         *
+         */
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        validator.setMessage("Input Required");
+        //validator.setAwsomeIcon(new Icon(AwesomeIcon.WARNING,"2em",";","error"));
+        nom.getValidators().add(validator);
+        nom.focusedProperty().addListener((o,oldVal,newVal)->{
+            if(!newVal) nom.validate();
+        });
     }
 }

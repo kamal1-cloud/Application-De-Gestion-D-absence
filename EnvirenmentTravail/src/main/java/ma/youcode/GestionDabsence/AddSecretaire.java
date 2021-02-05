@@ -53,6 +53,8 @@ public class AddSecretaire implements Initializable {
         String dateNaissanceValue = "";
         String emailValue = "";
 
+        System.out.println("here ");
+
         if (nom.getText() != null) {
             nomValue = nom.getText();
         }
@@ -87,15 +89,12 @@ public class AddSecretaire implements Initializable {
             /************* there is no error now we can insert data into database ************/
             try {
                 Long idSec = secretaireDaoImp.addSecreture(nomValue, prenomValue, emailValue, numTeleValue, passwordValue, cinValue, dateNaissanceValue);
-                //(Long idSecretaire, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance)
                 Secretaire secretaire = new Secretaire(idSec, nomValue, prenomValue, numTeleValue, emailValue, cinValue, dateNaissanceValue);
                 if (idSec > 0) {
-                    //public Secretaire(Long idSecretaire, String nom, String prenom, String numTele, String email, String CIN, String dateNaissance)
                     singletonObject.secretaires.add(secretaire);
                     singletonObject.users.add(secretaire);
                     AlertBox.window.close();
                 }
-
             }
             catch (Exception ex) {
 

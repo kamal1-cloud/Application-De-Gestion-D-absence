@@ -1,10 +1,15 @@
 package ma.youcode.GestionDabsence;
+import com.jfoenix.svg.SVGGlyph;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import ma.youcode.GestionDabsence.AbcenseDAO.AbsenceDaoImp;
 import ma.youcode.GestionDabsence.DAO.AdminDAO.AdminDaoImp;
@@ -15,13 +20,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.SplittableRandom;
 import java.util.function.Predicate;
 
-public class SecSceneController implements Initializable {
+public class MarkedAbsence implements Initializable {
     UserDaoImp userDaoImp;
     AdminDaoImp adminDaoImp;
     @FXML
-    private TableView<ApprenantAbsence> apprenantAbsenceList;
+    private TableView<ApprenantAbsence> apprenantAbsenceTable;
     @FXML
     private TableColumn<ApprenantAbsence, String> nom;
 
@@ -50,6 +56,8 @@ public class SecSceneController implements Initializable {
 
     @FXML
     private TableColumn update;
+    @FXML
+    TableColumn switchAbs;
 
     @FXML
     private TextField searchInput;
@@ -59,11 +67,7 @@ public class SecSceneController implements Initializable {
     AbsenceDaoImp absenceDaoImp;
 
 
-    public SecSceneController() {
-        //apprenantDaoImp = new ApprenantDaoImp();
-        userDaoImp = new UserDaoImp();
-        adminDaoImp = new AdminDaoImp();
-        absenceDaoImp = new AbsenceDaoImp();
+    public MarkedAbsence() {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,10 +82,31 @@ public class SecSceneController implements Initializable {
             nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
             prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
             email.setCellValueFactory(new PropertyValueFactory<>("email"));
-           // cin.setCellValueFactory(new PropertyValueFactory<>("CIN"));
+            // cin.setCellValueFactory(new PropertyValueFactory<>("CIN"));
             numTele.setCellValueFactory(new PropertyValueFactory<>("numTele"));
             dateDebu.setCellValueFactory(new PropertyValueFactory<>("dateDebu"));
             dateEnd.setCellValueFactory(new PropertyValueFactory<>("dateFin"));
+            System.out.println(new PropertyValueFactory<>("isJustifier"));
+            update.setCellValueFactory(new PropertyValueFactory<>("absAccp"));
+
+            switchAbs.setCellFactory(col -> {
+                Button addButton = new Button("change");
+                TableCell<ApprenantAbsence, ApprenantAbsence> addCell = new TableCell<ApprenantAbsence, ApprenantAbsence>() {
+                    @Override
+                    public void updateItem(ApprenantAbsence item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            setGraphic(addButton);
+                            setText(null);
+                        }
+                    }
+
+                };
+                return addCell;
+            });
             /** delete button from table view */
 
 
@@ -118,7 +143,7 @@ public class SecSceneController implements Initializable {
                         public TableCell call(final TableColumn<ApprenantAbsence, String> param) {
                             final TableCell<ApprenantAbsence, String> cell = new TableCell<ApprenantAbsence, String>() {
 
-                                final Button btn = new Button("accepter");
+                                final Button btn = new Button("remove");
 
                                 @Override
                                 public void updateItem(String item, boolean empty) {
@@ -130,13 +155,11 @@ public class SecSceneController implements Initializable {
                                         ApprenantAbsence temp = getTableView().getItems().get(getIndex());
                                         btn.setOnAction(event -> {
                                             try {
-                                                boolean res = absenceDaoImp.accepteAbsence(temp.getAbsenceId());
-                                                secSingletom.apprenantAbsences.remove(temp);
-                                                secSingletom.apprenantAbsencesFiltred.remove(temp);
+                                                boolean res = absenceDaoImp.removeAbsenceById(temp.getAbsenceId());
                                                 if (res) {
-
+                                                    secSingletom.reviewedAbsence.remove(temp);
                                                 }else {
-                                                    /* display some error */
+                                                    System.out.println("error while removing an absence");
                                                 }
                                             }
                                             catch (Exception ex) {
@@ -162,13 +185,14 @@ public class SecSceneController implements Initializable {
             /************************/
             //update.setCellValueFactory(new PropertyValueFactory<>("updateeee"));
 
-            Callback<TableColumn<ApprenantAbsence, String>, TableCell<ApprenantAbsence, String>> updateFactory
+           /* Callback<TableColumn<ApprenantAbsence, String>, TableCell<ApprenantAbsence, String>> updateFactory
                     = //
                     new Callback<>() {
                         @Override
                         public TableCell call(final TableColumn<ApprenantAbsence, String> param) {
                             final TableCell<ApprenantAbsence, String> cell = new TableCell<ApprenantAbsence, String>() {
-                                final Button btn = new Button("refuser");
+                                final Button btn = new Button("change");
+
                                 @Override
                                 public void updateItem(String item, boolean empty) {
                                     super.updateItem(item, empty);
@@ -179,20 +203,13 @@ public class SecSceneController implements Initializable {
                                         ApprenantAbsence temp = getTableView().getItems().get(getIndex());
                                         btn.setOnAction(event -> {
                                             try {
-                                                boolean res = absenceDaoImp.refuseAbsence(temp.getAbsenceId());
-                                                secSingletom.apprenantAbsences.remove(temp);
-                                                if (res) {
-                                                    //System.out.println(secSingletom.apprenantAbsences.size());
-                                                    //secSingletom.apprenantAbsences.remove(temp);
-                                                }else {
-                                                    /* display some error */
-                                                    System.out.println("something wrong happpen");
-                                                }
+
                                             }catch (Exception ex) {
                                                 AlertBox.displayError(ex.getMessage());
                                             }
 
                                         });
+                                        //System.out.println(item.length());
                                         setGraphic(btn);
                                         setText(null);
                                     }
@@ -201,11 +218,11 @@ public class SecSceneController implements Initializable {
                             return cell;
                         }
                     };
-            update.setCellFactory(updateFactory);
+            update.setCellFactory(updateFactory);*/
             /**************************/
 
             /** end combo box*/
-            apprenantAbsenceList.setItems(secSingletom.apprenantAbsencesFiltred);
+            apprenantAbsenceTable.setItems(secSingletom.filtedReviewedAbsence);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -217,6 +234,6 @@ public class SecSceneController implements Initializable {
 
     public void loadmarkedAbs(ActionEvent actionEvent) {
 
-        apprenantAbsenceList.setItems(null);
+        apprenantAbsenceTable.setItems(null);
     }
 }
