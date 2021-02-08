@@ -41,4 +41,7 @@ public class App extends Application {
         launch();
     }
 
-}
+//    public void start(Stage primaryStage) throws Exception{
+//        window = primaryStage;
+    }
+

@@ -29,7 +29,7 @@ public class SecretaireController implements Initializable {
     @FXML
     private TableColumn<ApprenantAbsence, String> colPrenom;
     @FXML
-    private TableColumn<ApprenantAbsence, String>  colNomspe;
+    private TableColumn<ApprenantAbsence, String> colNomspe;
     @FXML
     private TableColumn<ApprenantAbsence, String> coldateDebu;
     @FXML
@@ -57,14 +57,14 @@ public class SecretaireController implements Initializable {
 
     }
 
-    public ObservableList<ApprenantAbsence> getAllApprenantsAbsence() throws SQLException, ClassNotFoundException{
+    public ObservableList<ApprenantAbsence> getAllApprenantsAbsence() throws SQLException, ClassNotFoundException {
         SecretaireDaoImp secretaire = new SecretaireDaoImp();
-        ObservableList<ApprenantAbsence>apprenantList = secretaire.AfficheApprantAbsence();
+        ObservableList<ApprenantAbsence> apprenantList = secretaire.AfficheApprantAbsence();
 
         return apprenantList;
     }
 
-    public void showApprenantsAbsences() throws SQLException, ClassNotFoundException{
+    public void showApprenantsAbsences() throws SQLException, ClassNotFoundException {
         ObservableList<ApprenantAbsence> list = getAllApprenantsAbsence();
 
         colcin.setCellValueFactory(new PropertyValueFactory<ApprenantAbsence, String>("cin"));
@@ -79,4 +79,12 @@ public class SecretaireController implements Initializable {
     }
 
 
-}
+    //        Controleur
+//    @FXML
+//    private void updateAb() throws SQLException, ClassNotFoundException {
+//        SecretaireDaoImp.UpdateJustification(combo_jist.getValue().toString(), txt_cin.getText());
+//        JOptionPane.showMessageDialog(null, "la justification bien modifier");
+//        showApprenantsAbsences();
+
+    }
+

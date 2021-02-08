@@ -19,6 +19,8 @@ public class SecretaireDaoImp implements SecretaireDAO {
 
     @Override
     public List<Secretaire> getAll() throws ClassNotFoundException, SQLException {
+        //Instancier la classe Secretaire
+        //création de l'objet secretaires
         List<Secretaire> secretaires = new ArrayList<Secretaire>();
 
 
@@ -168,12 +170,13 @@ public class SecretaireDaoImp implements SecretaireDAO {
         Connection conn = null;
         try {
 
-            String requete="select nom,prenom,CIN,name,dateDebu,dateFin,isJustifie,retard from apprenant,absence,specialite WHERE apprenant.idApprenant=absence.idApprenant and apprenant.specialite=specialite.idSpecialite";
+            String requete="SELECT cin,user.nom,prenom,specialite.nom,retard,isJustifie,dateDebu, dateFin FROM apprenant,specialite,absence,user WHERE apprenant.idApprenant = Absence.idApprenant AND Apprenant.idSpecialite = Specialite.idSpecialite AND User.idUser=apprenant.idUser";
+            //String requete="select from User nom,prenom,CIN,nom,dateDebu,dateFin,isJustifie,retard from apprenant,specialite,Absence WHERE User.idApprenant= Apprenant.idUser and Apprenant.idSpecialite = Specialite.idSpecialite and Absence.idApprenant = Apprenant.idApprenant";
             PreparedStatement statement = DbConnection.getConnection() .prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = statement.executeQuery();
             ApprenantAbsence apprenantAbsente;
             while (rs.next()) {
-                apprenantAbsente = new ApprenantAbsence(rs.getString("cin"),rs.getString("nom"),rs.getString("prenom"),rs.getString("name"),rs.getString("dateDebu"),rs.getString("dateFin"),rs.getString("isJustifie"),rs.getInt("retard"));
+                apprenantAbsente = new ApprenantAbsence(rs.getString("cin"),rs.getString("nom"),rs.getString("prenom"),rs.getString("nom"),rs.getString("retard"),rs.getString("isJustifie"),rs.getString("dateDebu"),rs.getInt("dateFin"));
                 ApprenantsAbsentes.add(apprenantAbsente);
             }
         } catch (SQLException | ClassNotFoundException throwables) {
@@ -190,5 +193,29 @@ public class SecretaireDaoImp implements SecretaireDAO {
         return ApprenantsAbsentes;
     }
 
+//    @Override
+//    public static void UpdateJustification(String justification, String cin) {
+//
+//        Connection conn = null;
+//        try {
+//            String requete = "Update absence set justification= ? where id_appr = ?";
+//            PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+//
+//            statement.setString(1, justification);
+//            statement.setString(2, cin);
+//            statement.executeUpdate();
+//        } catch (SQLException | ClassNotFoundException throwables) {
+//            throwables.printStackTrace();
+//        } finally {
+//            try {
+//                if (conn != null) {
+//                    conn.close();
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+//    }
 
 }
