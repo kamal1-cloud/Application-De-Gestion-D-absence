@@ -1,26 +1,24 @@
 package ma.youcode.GestionDabsence.Modeles;
 
 public class Specialite {
-
-
-    private Long idSpecialite;
+    private int idSpecialite;
     private String nom;
 
 
-    public Specialite( ) {
+    public Specialite() {
 
     }
 
-    public Specialite(Long idSpecialite, String nom) {
+    public Specialite(int idSpecialite, String nom) {
         this.idSpecialite = idSpecialite;
         this.nom = nom;
     }
 
-    public Long getIdSpecialite() {
+    public int getIdSpecialite() {
         return idSpecialite;
     }
 
-    public void setIdSpecialite(Long idSpecialite) {
+    public void setIdSpecialite(int idSpecialite) {
         this.idSpecialite = idSpecialite;
     }
 

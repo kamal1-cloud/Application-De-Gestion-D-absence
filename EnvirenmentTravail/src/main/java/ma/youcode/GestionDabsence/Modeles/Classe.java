@@ -1,28 +1,35 @@
 package ma.youcode.GestionDabsence.Modeles;
 
 public class Classe {
-    private Long idClasse;
+    private int idClasse;
     private String Nom;
     private String salle;
     private boolean isClasse;
-    private long idFormateur;
+    private Long idFormateur;
 
     public Classe( ) {
      }
 
-    public Classe(Long idClasse, String nom, String salle, boolean isClasse, long idFormateur) {
+    public Classe(int idClasse, String nom, String salle, Long idFormateur) {
         this.idClasse = idClasse;
-        Nom = nom;
+        this.Nom = nom;
         this.salle = salle;
-        this.isClasse = isClasse;
+        //this.isClasse = isClasse;
         this.idFormateur = idFormateur;
     }
 
-    public Long getIdClasse() {
+    public Classe(int idClasse, String nom, String salle) {
+        this.idClasse = idClasse;
+        this.Nom = nom;
+        this.salle = salle;
+    }
+
+
+    public int getIdClasse() {
         return idClasse;
     }
 
-    public void setIdClasse(Long idClasse) {
+    public void setIdClasse(int idClasse) {
         this.idClasse = idClasse;
     }
 

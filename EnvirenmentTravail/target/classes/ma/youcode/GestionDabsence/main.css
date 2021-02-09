@@ -1,0 +1,52 @@
+.sideBar {
+    -fx-background-color: #ddd;
+    /*#05051E;*/
+}
+
+.searchForm {
+    -fx-background-color: #c1c1c1;
+}
+
+.searchBtn {
+    -fx-background-color: blue;
+    -fx-text-fill: #fff;
+}
+
+table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: derive;
+    -fx-stroke: transparent;
+    -fx-size:50;
+    -fx-alignment: CENTER ;
+    -fx-text-alignment: center;
+
+}
+.table-row-cell:filled:hover {
+
+    -fx-size:50;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: center;
+
+
+}
+.table-view:row-selection {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-fixed-cell-size: 50;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: center;
+
+}
+
+.table-view .table-column{
+    -fx-text-alignment: center;
+    -fx-alignment: CENTER
+}
+
+.ba Label {
+    -fx-text-fill: red;
+    -fx-font-size: 10;
+    -fx-padding: 5 0 5 0;
+}
+

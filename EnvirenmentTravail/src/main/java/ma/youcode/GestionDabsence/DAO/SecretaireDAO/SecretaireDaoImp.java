@@ -3,8 +3,10 @@ package ma.youcode.GestionDabsence.DAO.SecretaireDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ma.youcode.GestionDabsence.Connectivity.DbConnection;
+import ma.youcode.GestionDabsence.GlobalVar;
 import ma.youcode.GestionDabsence.Modeles.ApprenantAbsence;
 import ma.youcode.GestionDabsence.Modeles.Secretaire;
+import ma.youcode.GestionDabsence.Modeles.User;
 import ma.youcode.GestionDabsence.Services.SecretaireServices;
 
 import java.math.BigInteger;
@@ -14,10 +16,12 @@ import java.util.Date;
 import java.util.List;
 
 public class SecretaireDaoImp implements SecretaireDAO {
-
     Statement statement = null;
-
+    Connection conn;
+    PreparedStatement stmt;
+    ResultSet rst;
     @Override
+<<<<<<< HEAD
     public List<Secretaire> getAll() throws ClassNotFoundException, SQLException {
         //Instancier la classe Secretaire
         //création de l'objet secretaires
@@ -27,39 +31,85 @@ public class SecretaireDaoImp implements SecretaireDAO {
         statement = DbConnection.getConnection().createStatement();
         System.out.println("création de l'objet Statement");
 
+=======
+    public ArrayList<User> getAll() throws ClassNotFoundException, SQLException {
+        ArrayList<User> secretaires = new ArrayList<>();
+>>>>>>> 5be03608cccccdc3b2b59485b7ce231e8041f20d
 
+        conn = DbConnection.getConnection();
+        statement = conn.createStatement();
         ResultSet resultat;
-        String requete = "Select * From Secretaire";
-
+        String requete = "SELECT * FROM User u WHERE u.idUser='secreture'";
         resultat = statement.executeQuery(requete);
-
         while (resultat.next()) {
             //BigInteger idSecretaire = BigInteger.valueOf(resultat.getInt("idSecretaire"));
-            int idSecretaire = resultat.getInt("idSecretaire");
+            // idUser, nom, prenom, numTele, email, CIN, dateNaissance,
+            Long idSecretaire = resultat.getLong("idUser");
             String nom = resultat.getString("nom");
             String prenom = resultat.getString("prenom");
             String numTele = resultat.getString("numTele");
             String email = resultat.getString("email");
-            String password = resultat.getString("password");
             String CIN = resultat.getString("CIN");
             String dateNaissance = resultat.getString("dateNaissance");
-
-            Secretaire p = new Secretaire(idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
+            boolean isAdmin = resultat.getBoolean("isAdmin");
+            Secretaire p = new Secretaire(idSecretaire, nom, prenom, numTele, email, CIN, dateNaissance, isAdmin);
             secretaires.add(p);
         }
 
+        resultat.close();
+        statement.close();
+        conn.close();
         return secretaires;
     }
 
 
+    /**************** add secretaire ****************/
+
     @Override
-    public Secretaire getById(int idSecretaire) throws ClassNotFoundException, SQLException {
+    public Long addSecreture(String nom, String prenom, String email, String numTele, String password, String cin, String dateNaissance) throws SQLException, ClassNotFoundException {
+
+        String requete = "INSERT INTO User (nom, prenom, numTele, email, password, CIN, dateNaissance, `role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        conn = DbConnection.getConnection();
+        stmt = conn.prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+        stmt.setString(1, nom);
+        stmt.setString(2, prenom);
+        stmt.setString(3, numTele);
+        stmt.setString(4, email);
+        stmt.setString(5, password);
+        stmt.setString(6, cin);
+        stmt.setString(7, dateNaissance);
+        stmt.setString(8, GlobalVar.secreture);
+        int affectedRow = stmt.executeUpdate();
+        Long idUser = -1L;
+        if (affectedRow == 0) {
+            throw new SQLException("inserting failed");
+        }
+        System.out.println("secreture inserted");
+        rst = stmt.getGeneratedKeys();
+        while (rst.next()) {
+            System.out.println(rst.getLong(1));
+            idUser = rst.getLong(1);
+        }
+        rst.close();
+        stmt.close();
+        conn.close();
+        if (idUser == -1) {
+            throw new SQLException("inserting failed");
+        }
+        return idUser;
+    }
+
+    /***************** end add secretaire ***********/
+
+
+    @Override
+    public Secretaire getById(Long idSecretaire) throws ClassNotFoundException, SQLException {
         Secretaire secretaire = null;
 
         String requete = "Select * From Secretaire Where idSecretaire  = ?";
         PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete);
 
-        statement.setInt(1, idSecretaire);
+        statement.setLong(1, idSecretaire);
         ResultSet result = statement.executeQuery();
 
         if (result.next()) {
@@ -67,50 +117,21 @@ public class SecretaireDaoImp implements SecretaireDAO {
             String prenom = result.getString("prenom");
             String numTele = result.getString("numTele");
             String email = result.getString("email");
-            String password = result.getString("password");
+            //String password = result.getString("password");
             String CIN = result.getString("CIN");
             String dateNaissance = result.getString("dateNaissance");
             //Date dateNaissance = result.getDate(java.sql.Date.valueOf("2020-12-10"));
 
 
-            secretaire = new Secretaire(idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
+            secretaire = new Secretaire(idSecretaire, nom, prenom, numTele, email, CIN, dateNaissance);
         }
 
         return secretaire;
     }
 
-    @Override
-    public Secretaire sauveSecretaire(String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) throws ClassNotFoundException, SQLException {
-        Secretaire reponse = null;
-        long idSecretaire = -1;
-
-        String requete = "Insert INTO secretaire ( nom, prenom, numTele, email, password, CIN, dateNaissance) VALUES (?,?,?,?,?,?,?)";
-        PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, nom);
-        statement.setString(2, prenom);
-        statement.setString(3, numTele);
-        statement.setString(4, email);
-        statement.setString(5, password);
-        statement.setString(6, CIN);
-        statement.setString(7,dateNaissance);
-        statement.executeUpdate();
-
-        ResultSet rs = statement.getGeneratedKeys();
-
-        if (rs.next()) {
-            idSecretaire = rs.getLong(1);
-        }
-
-        reponse = new Secretaire((int) idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
-
-        return reponse;
-    }
-
-
-
 
     @Override
-    public void updateSecretaire(int idSecretaire,String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) throws ClassNotFoundException, SQLException {
+    public void updateSecretaire(Long idSecretaire,String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) throws ClassNotFoundException, SQLException {
         Connection conn = null;
         try{
             String requete = "Update Secretaire set nom = ?, prenom = ?, numTele = ?, email = ?, password = ?, CIN = ?, dateNaissance = ? where idSecretaire= ?";
@@ -123,7 +144,7 @@ public class SecretaireDaoImp implements SecretaireDAO {
             statement.setString(5, password);
             statement.setString(6, CIN);
             statement.setString(7, dateNaissance);
-            statement.setInt(8, idSecretaire);
+            statement.setLong(8, idSecretaire);
             statement.executeUpdate();
         }
         catch (SQLException throwables) {
@@ -146,7 +167,7 @@ public class SecretaireDaoImp implements SecretaireDAO {
     public void deleteById(int id) throws ClassNotFoundException, SQLException {
         Connection conn = null;
         try {
-            String requete = "DELETE FROM secretaire WHERE idSecretaire = ?";
+            String requete = "DELETE FROM Secretaire WHERE idSecretaire = ?";
             PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, id);
             statement.executeUpdate();
@@ -166,12 +187,22 @@ public class SecretaireDaoImp implements SecretaireDAO {
 
     @Override
     public ObservableList<ApprenantAbsence> AfficheApprantAbsence() {
+        return null;
+    }
+
+    /*
+    @Override
+    public ObservableList<ApprenantAbsence> AfficheApprantAbsence() {
         ObservableList<ApprenantAbsence> ApprenantsAbsentes= FXCollections.observableArrayList();
         Connection conn = null;
         try {
 
+<<<<<<< HEAD
             String requete="SELECT cin,user.nom,prenom,specialite.nom,retard,isJustifie,dateDebu, dateFin FROM apprenant,specialite,absence,user WHERE apprenant.idApprenant = Absence.idApprenant AND Apprenant.idSpecialite = Specialite.idSpecialite AND User.idUser=apprenant.idUser";
             //String requete="select from User nom,prenom,CIN,nom,dateDebu,dateFin,isJustifie,retard from apprenant,specialite,Absence WHERE User.idApprenant= Apprenant.idUser and Apprenant.idSpecialite = Specialite.idSpecialite and Absence.idApprenant = Apprenant.idApprenant";
+=======
+            String requete="select nom,prenom,CIN,name,dateDebu,dateFin,isJustifie,retard from Apprenant,Absence,Specialite WHERE apprenant.idApprenant=absence.idApprenant and Apprenant.specialite=Specialite.idSpecialite";
+>>>>>>> 5be03608cccccdc3b2b59485b7ce231e8041f20d
             PreparedStatement statement = DbConnection.getConnection() .prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = statement.executeQuery();
             ApprenantAbsence apprenantAbsente;
@@ -192,6 +223,42 @@ public class SecretaireDaoImp implements SecretaireDAO {
         }
         return ApprenantsAbsentes;
     }
+*/
+
+
+
+
+
+
+
+    @Override
+    public Secretaire sauveSecretaire(String nom, String prenom, String numTele, String email, String password, String CIN, String dateNaissance) throws ClassNotFoundException, SQLException {
+        Secretaire reponse = null;
+        long idSecretaire = -1;
+
+        String requete = "Insert INTO Secretaire ( nom, prenom, numTele, email, password, CIN, dateNaissance) VALUES (?,?,?,?,?,?,?)";
+        PreparedStatement statement = DbConnection.getConnection().prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
+        statement.setString(1, nom);
+        statement.setString(2, prenom);
+        statement.setString(3, numTele);
+        statement.setString(4, email);
+        statement.setString(5, password);
+        statement.setString(6, CIN);
+        statement.setString(7,dateNaissance);
+        statement.executeUpdate();
+
+        ResultSet rs = statement.getGeneratedKeys();
+
+        if (rs.next()) {
+            idSecretaire = rs.getLong(1);
+        }
+
+        //reponse = new Secretaire((int) idSecretaire, nom, prenom, numTele, email, password, CIN, dateNaissance);
+
+        return reponse;
+    }
+
+
 
 //    @Override
 //    public static void UpdateJustification(String justification, String cin) {

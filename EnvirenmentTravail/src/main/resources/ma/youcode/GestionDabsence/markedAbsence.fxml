@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="767.0" prefWidth="1700.0" style="-fx-background-color: #ffffff;" styleClass="Css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ma.youcode.GestionDabsence.MarkedAbsence">
+    <children>
+        <Pane layoutX="-3.0" layoutY="-1.0" prefHeight="96.0" prefWidth="1845.0" style="-fx-background-color: #212121; -fx-border-color: #ffeded;" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-12.0" AnchorPane.topAnchor="-1.0">
+            <children>
+                <ImageView fitHeight="53.0" fitWidth="234.0" layoutX="96.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/logo-youcode.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="searchInput" layoutX="1308.0" layoutY="130.0" prefHeight="47.0" prefWidth="527.0" promptText="Search" />
+                <JFXButton layoutX="1726.0" layoutY="25.0" prefHeight="41.0" prefWidth="105.0" style="-fx-background-color: blue;" text="Log out" textFill="WHITE" />
+            </children>
+        </Pane>
+        <Pane layoutY="94.0" prefHeight="955.0" prefWidth="238.0" style="-fx-background-color: #2262C6; -fx-background-radius: 0  60 0 0;">
+            <children>
+                <Label layoutX="28.0" layoutY="34.0" prefHeight="32.0" prefWidth="188.0" text="Bonjour Secreture" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Line endX="100.0" layoutX="114.0" layoutY="85.0" startX="-100.0" stroke="#fffbfb" />
+                <JFXButton fx:id="attenteAbsence" layoutX="28.0" layoutY="119.0" onAction="#loadAttenteAbs" prefHeight="41.0" prefWidth="171.0" style="-fx-background-color: #159cc5;" text="attente" textFill="WHITE" />
+                <JFXButton fx:id="markedAbs" layoutX="27.0" layoutY="182.0" onAction="#loadmarkedAbs" prefHeight="41.0" prefWidth="171.0" style="-fx-background-color: #159cc5;" text="last absence" textFill="WHITE" />
+            </children>
+        </Pane>
+        <!-- <ScrollPane layoutX="301.0" layoutY="329.0" prefHeight="676.0" prefWidth="1547.0" style="-fx-border-color: #2262C6;">
+             <content> -->
+        <TableView fx:id="apprenantAbsenceTable" editable="true" layoutX="292.0" layoutY="198.0" minHeight="662.0" minWidth="-Infinity" prefHeight="662.0" prefWidth="1538.0">
+            <columns>
+                <TableColumn fx:id="nom" prefWidth="186.0" text="nom" />
+                <TableColumn fx:id="prenom" prefWidth="178.0" text="prenom" />
+                <TableColumn fx:id="email" prefWidth="292.0" text="email" />
+                <TableColumn fx:id="numTele" prefWidth="228.0" text="numero tel" />
+                <TableColumn fx:id="dateDebu" prefWidth="150.0" text="date Debu" />
+                <TableColumn fx:id="dateEnd" prefWidth="162.0" text="date End" />
+                <TableColumn fx:id="delete" prefWidth="92.0" />
+                <TableColumn fx:id="update" prefWidth="154.0" text="status" />
+            <TableColumn fx:id="switchAbs" prefWidth="75.0" text="change" />
+            </columns>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+        </TableView>
+        <!-- </content>
+     </ScrollPane> -->
+    </children>
+</AnchorPane>
